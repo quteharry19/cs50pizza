@@ -1,0 +1,396 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Pinochio's Pizza - {% block title %} {% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" href="{% static 'orders/images/icon.jpg' %}">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'orders/css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'orders/css/animate.css' %}">
+
+    <link rel="stylesheet" href="{% static 'orders/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'orders/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'orders/css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{% static 'orders/css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'orders/css/ionicons.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'orders/css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'orders/css/jquery.timepicker.css' %} ">
+
+    <link rel="stylesheet" href="{% static 'orders/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'orders/css/icomoon.css' %}">
+
+    <link rel="stylesheet" href="{% static 'orders/css/style.css' %}">
+
+    <!-- <link rel="stylesheet" href="{% static 'orders/css/bootstrap.min.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'orders/css/fonts/fontawesome/font-awesome.min.css' %}"> -->
+
+    <link rel="stylesheet" href="{% static 'orders/css/mystyle.css' %}">
+
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'orders_index' %}">
+                <span class="flaticon-pizza-1 mr-1"></span>Pinnochios<br><small>Pizza</small>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a href="{% url 'orders_index' %}" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="menu.html" class="nav-link">Menu</a></li>
+                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"> welcome {{ user.first_name }} </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'logout_view' %}">Logout</a>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" href="#">
+                                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#signin"
+                                    type="button">Log In</button>
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" href="#">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#signup" type="button">
+                                    Sign Up
+                                </button>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Login fail</strong> {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Logged in Successfully</strong> {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+
+        {% endfor %}
+    {% endif %}
+    <div class="modal fade" role="dialog" tabindex="-1" id="signin">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document" >
+            <div class="modal-content" style="background-image: url({% static 'orders/images/bg_4.jpg' %});">
+
+                <div class="modal-header">
+                    <h4 class="modal-title" >Sign In</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form action="{% url 'login_view' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="text-primary input-group-text">
+                                        <i class="icon-user"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control ml-1" type="text" required placeholder=" username" name="username" />
+                                <div class="input-group-append"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="text-primary input-group-text">
+                                        <i class="icon-lock_outline"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control ml-1" type="password" required placeholder="Password" name="password" />
+                                <div class="input-group-append"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-lg text-white" style="width: 100%;" type="submit">Log in</button>
+                        </div>
+                    </form>
+                    <hr style="background-color: #bababa;" />
+                    <p class="text-center">Or <a class="text-decoration-none" href="#">Forget password</a></p>
+                    <p class="text-center">Don&#39;t have an account?  <a class="text-decoration-none"
+                            data-dismiss="modal" data-toggle="modal" data-target="#signup" href="#">Sign Up</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" role="dialog" tabindex="-1" id="signup">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-image: url({% static 'orders/images/bg_4.jpg' %});">
+                <div class="modal-header">
+                    <h4 class="modal-title">Sign Up Now</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="mt-4" method="POST" action="{% url 'signup' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="text-primary input-group-text">
+                                        <i class="icon-user-o"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control ml-1" type="text" required placeholder="username" name="username" />
+                                <div class="input-group-append"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="text-primary input-group-text">
+                                        <i class="icon-lock_outline"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control ml-1" type="password" required placeholder="Password" name="password" />
+                                <div class="input-group-append"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="text-primary input-group-text">
+                                        <i class="icon-user-o"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control ml-1" type="text" placeholder="First Name" name="first_name" />
+                                <div class="input-group-append"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="text-primary input-group-text">
+                                        <i class="icon-user-o"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control ml-1" type="text" placeholder="Last Name" name="last_name" />
+                                <div class="input-group-append"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="text-primary input-group-text">
+                                        <i class="icon-envelope-o"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control ml-1" type="email" required placeholder="Email" name="email" />
+                                <div class="input-group-append"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="formCheck-1" required checked />
+                                <label class="form-check-label" for="formCheck-1">
+                                    I agree all the terms and conditions.
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-lg text-white" style="width: 100%;" type="submit">
+                                Sign Up
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr style="background-color: #bababa;" />
+                    <p class="text-center">
+                        Already have an Account? 
+                        <a class="text-decoration-none" data-dismiss="modal"
+                            data-toggle="modal" data-target="#signin" href="#">
+                            Log In
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END nav -->
+
+    {% block content %}
+
+    {% endblock %}
+
+    {% block foot %}
+    <footer class="ftco-footer ftco-section img">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">About Us</h2>
+                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
+                            there live the blind texts.</p>
+                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                            <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-5 mb-md-5">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Recent Blog</h2>
+                        <div class="block-21 mb-4 d-flex">
+                            <a class="blog-img mr-4"
+                                style="background-image: url({% static 'orders/images/image_1.jpg' %});"></a>
+                            <div class="text">
+                                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a>
+                                </h3>
+                                <div class="meta">
+                                    <div><a href="#"><span class="icon-calendar"></span> Sept 15, 2018</a></div>
+                                    <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-21 mb-4 d-flex">
+                            <a class="blog-img mr-4"
+                                style="background-image: url({% static 'orders/images/image_2.jpg' %});"></a>
+                            <div class="text">
+                                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a>
+                                </h3>
+                                <div class="meta">
+                                    <div><a href="#"><span class="icon-calendar"></span> Sept 15, 2018</a></div>
+                                    <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-5 mb-md-5">
+                    <div class="ftco-footer-widget mb-4 ml-md-4">
+                        <h2 class="ftco-heading-2">Services</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="py-2 d-block">Cooked</a></li>
+                            <li><a href="#" class="py-2 d-block">Deliver</a></li>
+                            <li><a href="#" class="py-2 d-block">Quality Foods</a></li>
+                            <li><a href="#" class="py-2 d-block">Mixed</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Have a Questions?</h2>
+                        <div class="block-23 mb-3">
+                            <ul>
+                                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain
+                                        View, San Francisco, California, USA</span></li>
+                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929
+                                            210</span></a></li>
+                                <li><a href="#"><span class="icon icon-envelope"></span><span
+                                            class="text">info@yourdomain.com</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template
+                        is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                            target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% endblock %}
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen">
+        <svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00" />
+        </svg>
+    </div>
+
+
+    <script src="{% static 'orders/js/jquery.min.js' %}"></script>
+    <script src="{% static 'orders/js/jquery-migrate-3.0.1.min.js' %}"></script>
+    <script src="{% static 'orders/js/popper.min.js' %}"></script>
+    <script src="{% static 'orders/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'orders/js/jquery.easing.1.3.js' %}"></script>
+    <script src="{% static 'orders/js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'orders/js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'orders/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'orders/js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'orders/js/aos.js' %}"></script>
+    <script src="{% static 'orders/js/jquery.animateNumber.min.js' %}"></script>
+    <script src="{% static 'orders/js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static 'orders/js/jquery.timepicker.min.js' %}"></script>
+    <script src="{% static 'orders/js/scrollax.min.js' %}"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="{% static 'orders/js/google-map.js' %}"></script>
+    <script src="{% static 'orders/js/main.js' %}"></script>
+
+</body>
+
+</html>
