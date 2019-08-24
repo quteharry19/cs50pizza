@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .sendEmail import send_HTML_Email
 
 # Create your views here.
 def index(request):
@@ -52,7 +53,16 @@ def contact(request):
 def contactSubmitted(request):
     if request.method == 'POST':
         fullname = request.POST['name']
+        mail_to = [request.POST['email']]
+        msg = request.POST['msg']
         messages.success(request, f'Thanks {fullname} for contacting Harish Ahuja')
+        subject = "Welcome to Pinochio's pizza & subs"
+        context = {
+            'fullname' : fullname,
+            'msg' : msg
+        }
+        result = send_HTML_Email(to=mail_to,subject=subject,template_name='orders/contactSubmitted.html',context=context)
+        print(result)
     return HttpResponseRedirect(reverse('orders_index'))
 
 def logout_view(request):
@@ -73,11 +83,13 @@ def signup(request):
             user.last_name = last_name
             user.save()
             login(request, user)
-            # context = {
-            #     'user' : user,
-            #     'status' : 'Authenticated'
-            # }
             messages.success(request, f'Welcome {first_name}')
+            subject = "Welcome to Pinochio's Pizza & Subs"
+            context = {
+                'user' : user,
+                'password' : password
+            }
+            result = send_HTML_Email(to=[email],subject=subject,template_name='orders/signupMail.html',context=context)
         except :
             messages.error(request, f'Login Faield Username {username} already taken')
 

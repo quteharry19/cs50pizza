@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <link href="{% static 'orders/css/bootstrap.min.css' %}" rel="stylesheet">
+    <title>Welcome Mail</title>
+
+</head>
+<body>
+    <h2>Greetings !!,</h2>
+    <div class="ml-5">
+        <div>
+            Welcome to Pinochio's Pizza & Subs {{ user.first_name }},
+            <br>
+            you can now login with your credentials below
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Password</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-success">
+                            <td>
+                                {{ user.username }}
+                            </td>
+                            <td>
+                                {{ password }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <h3>
+                Feel safe your password is not saved as clear text with us<br>
+                password is saved in hash Like this : <br>
+                {{ user.password }}
+            </h3>
+        </div>
+    </div>
+    <br><br>
+    <strong>
+        Thanks & Regards,<br>
+        Harish Ahuja(Developer)
+    </strong>
+
+</body>
+</html>
