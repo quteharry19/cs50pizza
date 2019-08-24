@@ -88,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME' : 'd88cu7nd631pqb',
         'USER' : 'ejbkmjdblbkqaj',
-        'PASSWORD' : '86f0f4a8ad59a6142f72d279e01057e4057108017cec5dd991f7e8b59b6e8a82',
+        'PASSWORD' : os.getenv('PG_DB_PWD'),
         'HOST' : 'ec2-54-221-198-156.compute-1.amazonaws.com',
         'PORT' : '5432'
     }
@@ -146,7 +146,7 @@ EMAIL_USE_LOCALTIME = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'quteharry19@gmail.com'
-EMAIL_HOST_PASSWORD = 'harish*5697'
+EMAIL_HOST_PASSWORD = os.getenv('MY_EMAIL_PWD')
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
