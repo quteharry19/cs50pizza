@@ -45,7 +45,10 @@
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'orders_index' %}">
-                <span class="flaticon-pizza-1 mr-1"></span>Pinnochios<br><small>Pizza</small>
+                <img src="{% static 'orders/images/pinocchio_72.gif' %}" alt="Pinochio's" height="30px">
+                <!-- <span class="flaticon-pizza-1 mr-1"></span> -->
+                Pinochio's<br>
+                <small>Pizza & Subs</small>
             </a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
@@ -56,11 +59,11 @@
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a href="{% url 'orders_index' %}" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="menu.html" class="nav-link">Menu</a></li>
-                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
-                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="{% url 'menu' %}" class="nav-link">Menu</a></li>
+                    <li class="nav-item"><a href="{% url 'services' %}" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="{% url 'blog' %}" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
                     {% if user.is_authenticated %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -96,7 +99,7 @@
         {% for message in messages %}
             {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Login fail</strong> {{ message }}
+                    <strong>{{ message }}</strong> 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -105,7 +108,7 @@
 
             {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Logged in Successfully</strong> {{ message }}
+                    <strong>{{ message }}</strong> 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -333,12 +336,18 @@
                         <h2 class="ftco-heading-2">Have a Questions?</h2>
                         <div class="block-23 mb-3">
                             <ul>
-                                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain
-                                        View, San Francisco, California, USA</span></li>
-                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929
-                                            210</span></a></li>
+                                <li><span class="icon icon-map-marker"></span>
+                                    <span class="text">
+                                        50 Lake Pearl Garden
+                                        Airport Road Lalghati, Bhopal, M.P., INDIA</span>
+                                </li>
+                                <li><a href="#">
+                                    <span class="icon icon-phone"></span>
+                                    <span class="text">+91 9993162097</span>
+                                    </a>
+                                </li>
                                 <li><a href="#"><span class="icon icon-envelope"></span><span
-                                            class="text">info@yourdomain.com</span></a></li>
+                                            class="text">quteharry19@hotmail.com</span></a></li>
                             </ul>
                         </div>
                     </div>

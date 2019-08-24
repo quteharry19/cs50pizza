@@ -21,11 +21,11 @@ def login_view(request):
     if user is not None :
         login(request, user)
         print('authenticated')
-        context = {
-            'user' : user,
-            'status' : 'Authenticated'
-        }
-        messages.success(request, "Authenticated")
+        # context = {
+        #     'user' : user,
+        #     'status' : 'Authenticated'
+        # }
+        messages.success(request, "Logged in Successfully")
         return redirect('orders_index')
         #return render(request, 'orders/index.html', context=context)
     else:
@@ -33,6 +33,27 @@ def login_view(request):
         print('not authenticated')
         return redirect('orders_index')
         #return render(request, 'orders/index.html')
+
+def blog(request):
+    return render(request, 'orders/blog.html')
+
+def menu(request):
+    return render(request, 'orders/menu.html')
+
+def services(request):
+    return render(request, 'orders/services.html')
+
+def about(request):
+    return render(request, 'orders/about.html')
+
+def contact(request):
+    return render(request, 'orders/contact.html')
+
+def contactSubmitted(request):
+    if request.method == 'POST':
+        fullname = request.POST['name']
+        messages.success(request, f'Thanks {fullname} for contacting Harish Ahuja')
+    return HttpResponseRedirect(reverse('orders_index'))
 
 def logout_view(request):
     logout(request)
@@ -52,13 +73,13 @@ def signup(request):
             user.last_name = last_name
             user.save()
             login(request, user)
-            context = {
-                'user' : user,
-                'status' : 'Authenticated'
-            }
+            # context = {
+            #     'user' : user,
+            #     'status' : 'Authenticated'
+            # }
             messages.success(request, f'Welcome {first_name}')
         except :
-            messages.error(request, f'Username {username} already taken')
+            messages.error(request, f'Login Faield Username {username} already taken')
 
     return HttpResponseRedirect(reverse('orders_index'))
         #return render(request, 'orders/index.html', context=context)
