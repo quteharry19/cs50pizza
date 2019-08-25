@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'i0&iq&e9u9h6(4_7%pt2s9)f=c$kso=k$c$w@fi9215s=1q0^d'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -94,7 +94,7 @@ DATABASES = {
     }
 }
 
-DATABASE_URL = 'postgres://ejbkmjdblbkqaj:86f0f4a8ad59a6142f72d279e01057e4057108017cec5dd991f7e8b59b6e8a82@ec2-54-221-198-156.compute-1.amazonaws.com:5432/d88cu7nd631pqb'
+DATABASE_URL = os.getenv('DATABASR_URL')
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -142,6 +142,7 @@ STATIC_URL = '/static/'
 #     os.path.join(BASE_DIR, 'static'),
 # )
 
+DEFAULT_EMAIL_FROM = 'quteharry19@gmail.com'
 EMAIL_USE_LOCALTIME = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
