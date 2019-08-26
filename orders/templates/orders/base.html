@@ -42,6 +42,8 @@
 </head>
 
 <body>
+
+    <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'orders_index' %}">
@@ -50,7 +52,7 @@
                 Pinochio's<br>
                 <small>Pizza & Subs</small>
             </a>
-            
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
@@ -65,64 +67,68 @@
                     <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">About</a></li>
                     <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
                     {% if user.is_authenticated %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false"> welcome {{ user.first_name }} </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'logout_view' %}">Logout</a>
-                            </div>
-                        </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> welcome
+                            {{ user.first_name }} </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'password_reset' %}">Reset Password</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'logout_view' %}">Logout</a>
+                        </div>
+                    </li>
                     {% else %}
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" href="#">
-                                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#signin"
-                                    type="button">Log In</button>
-                            </a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link active" href="#">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#signup" type="button">
-                                    Sign Up
-                                </button>
-                            </a>
-                        </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="#">
+                            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#signin"
+                                type="button">Log In</button>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" href="#">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#signup" type="button">
+                                Sign Up
+                            </button>
+                        </a>
+                    </li>
                     {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
 
+    <!-- message bar -->
     {% if messages %}
-        {% for message in messages %}
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>{{ message }}</strong> 
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            {% endif %}
-
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>{{ message }}</strong> 
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            {% endif %}
-
-        {% endfor %}
+    {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     {% endif %}
+
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+
+    {% endfor %}
+    {% endif %}
+
+    <!-- bootstrap modal -->
     <div class="modal fade" role="dialog" tabindex="-1" id="signin">
-        <div class="modal-dialog modal-sm modal-dialog-centered" role="document" >
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content" style="background-image: url({% static 'orders/images/bg_4.jpg' %});">
 
                 <div class="modal-header">
-                    <h4 class="modal-title" >Sign In</h4>
+                    <h4 class="modal-title">Sign In</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -138,7 +144,8 @@
                                         <i class="icon-user"></i>
                                     </span>
                                 </div>
-                                <input class="form-control ml-1" type="text" required placeholder=" username" name="username" />
+                                <input class="form-control ml-1" type="text" required placeholder=" username"
+                                    name="username" />
                                 <div class="input-group-append"></div>
                             </div>
                         </div>
@@ -149,16 +156,19 @@
                                         <i class="icon-lock_outline"></i>
                                     </span>
                                 </div>
-                                <input class="form-control ml-1" type="password" required placeholder="Password" name="password" />
+                                <input class="form-control ml-1" type="password" required placeholder="Password"
+                                    name="password" />
                                 <div class="input-group-append"></div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-primary btn-lg text-white" style="width: 100%;" type="submit">Log in</button>
+                            <button class="btn btn-primary btn-lg text-white" style="width: 100%;" type="submit">Log
+                                in</button>
                         </div>
                     </form>
                     <hr style="background-color: #bababa;" />
-                    <p class="text-center">Or <a class="text-decoration-none" href="#">Forget password</a></p>
+                    <p class="text-center">Or <a class="text-decoration-none" href="{% url 'password_reset' %}">Forget
+                            password</a></p>
                     <p class="text-center">Don&#39;t have an account?  <a class="text-decoration-none"
                             data-dismiss="modal" data-toggle="modal" data-target="#signup" href="#">Sign Up</a></p>
                 </div>
@@ -185,7 +195,8 @@
                                         <i class="icon-user-o"></i>
                                     </span>
                                 </div>
-                                <input class="form-control ml-1" type="text" required placeholder="username" name="username" />
+                                <input class="form-control ml-1" type="text" required placeholder="username"
+                                    name="username" />
                                 <div class="input-group-append"></div>
                             </div>
                         </div>
@@ -197,7 +208,8 @@
                                         <i class="icon-lock_outline"></i>
                                     </span>
                                 </div>
-                                <input class="form-control ml-1" type="password" required placeholder="Password" name="password" />
+                                <input class="form-control ml-1" type="password" required placeholder="Password"
+                                    name="password" />
                                 <div class="input-group-append"></div>
                             </div>
                         </div>
@@ -209,7 +221,8 @@
                                         <i class="icon-user-o"></i>
                                     </span>
                                 </div>
-                                <input class="form-control ml-1" type="text" placeholder="First Name" name="first_name" />
+                                <input class="form-control ml-1" type="text" placeholder="First Name"
+                                    name="first_name" />
                                 <div class="input-group-append"></div>
                             </div>
                         </div>
@@ -233,7 +246,8 @@
                                         <i class="icon-envelope-o"></i>
                                     </span>
                                 </div>
-                                <input class="form-control ml-1" type="email" required placeholder="Email" name="email" />
+                                <input class="form-control ml-1" type="email" required placeholder="Email"
+                                    name="email" />
                                 <div class="input-group-append"></div>
                             </div>
                         </div>
@@ -257,8 +271,8 @@
                     <hr style="background-color: #bababa;" />
                     <p class="text-center">
                         Already have an Account? 
-                        <a class="text-decoration-none" data-dismiss="modal"
-                            data-toggle="modal" data-target="#signin" href="#">
+                        <a class="text-decoration-none" data-dismiss="modal" data-toggle="modal" data-target="#signin"
+                            href="#">
                             Log In
                         </a>
                     </p>
@@ -342,8 +356,8 @@
                                         Airport Road Lalghati, Bhopal, M.P., INDIA</span>
                                 </li>
                                 <li><a href="#">
-                                    <span class="icon icon-phone"></span>
-                                    <span class="text">+91 9993162097</span>
+                                        <span class="icon icon-phone"></span>
+                                        <span class="text">+91 9993162097</span>
                                     </a>
                                 </li>
                                 <li><a href="#"><span class="icon icon-envelope"></span><span
@@ -360,12 +374,12 @@
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         Copyright &copy;
                         <script>
-                        document.write(new Date().getFullYear());
+                            document.write(new Date().getFullYear());
                         </script>
-                         All rights reserved | This template is made with 
-                         <i class="icon-heart" aria-hidden="true"></i>
-                          by 
-                          <a href="https://colorlib.com" target="_blank">Harish Ahuja</a>
+                        All rights reserved | This web app is made with
+                        <i class="icon-heart" aria-hidden="true"></i>
+                        by
+                        <a href="https://colorlib.com" target="_blank">Harish Ahuja</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
                 </div>
