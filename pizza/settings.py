@@ -150,5 +150,7 @@ EMAIL_HOST_USER = 'quteharry19@gmail.com'
 EMAIL_HOST_PASSWORD = os.getenv('MY_EMAIL_PWD')
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
+MEDIA_ROOT = os.path.join(BASE_DIR, 'orders/static/orders/')
+MEDIA_URL = "/media/"
 
 django_heroku.settings(locals())

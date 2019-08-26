@@ -12,6 +12,7 @@ class Product_catagory(models.Model):
 class Product(models.Model):
     catagory = models.ForeignKey(Product_catagory,on_delete=models.CASCADE,related_name="product_catagory")
     product_name = models.CharField(max_length=64)
+    product_image = models.ImageField(verbose_name="Product Image",upload_to = "images/",default=None)
     prize_small = models.FloatField("Prize for Small")
     prize_large = models.FloatField("Prize for Large")
 

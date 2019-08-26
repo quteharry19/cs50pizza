@@ -56,7 +56,10 @@ def contactSubmitted(request):
         mail_to = [request.POST['email']]
         msg = request.POST['msg']
         messages.success(request, f'Thanks {fullname} for contacting Harish Ahuja')
-        subject = "Welcome to Pinochio's pizza & subs"
+        if request.POST['subject']:
+            subject = request.POST['subject']
+        else :
+            subject = "Welcome to Pinochio's pizza & subs"
         context = {
             'fullname' : fullname,
             'msg' : msg
@@ -90,6 +93,7 @@ def signup(request):
                 'password' : password
             }
             result = send_HTML_Email(to=[email],subject=subject,template_name='orders/signupMail.html',context=context)
+            print(result)
         except :
             messages.error(request, f'Login Faield Username {username} already taken')
 
