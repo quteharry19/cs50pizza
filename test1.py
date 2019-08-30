@@ -12,4 +12,6 @@ print('P1 :',p1)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'orders/static/orders/')
 print('Media Root :',MEDIA_ROOT)
 
-
+a = 'a'
+print(a)
+print(int(''))
