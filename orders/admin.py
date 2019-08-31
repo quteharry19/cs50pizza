@@ -5,6 +5,8 @@ from .models import Product_catagory, Product, Order, Order_detail, Topping
 class Product_admin(admin.ModelAdmin):
     list_display = ("catagory","product_name","prize_small","prize_large")
     search_fields = ["catagory__Catagory_name","product_name"]
+    list_filter = ["catagory__Catagory_name"]
+    list_editable = ["prize_small","prize_large"]
 
 class Order_admin(admin.ModelAdmin):
     list_display = ("user","status","amount")
