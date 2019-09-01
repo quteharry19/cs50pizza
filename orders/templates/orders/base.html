@@ -44,7 +44,7 @@
 <body>
 
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light mb-0" id="ftco-navbar">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'orders_index' %}">
                 <img src="{% static 'orders/images/pinocchio_72.gif' %}" alt="Pinochio's" height="30px">
@@ -69,9 +69,10 @@
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> welcome
-                            {{ user.first_name }} </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             welcome {{ user.first_name }}
+                            </a>
+                        <div class="dropdown-menu mt-0" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'password_reset' %}">Reset Password</a>
                             <a class="dropdown-item" href="#">Another action</a>
                             <div class="dropdown-divider"></div>
@@ -168,9 +169,14 @@
                     </form>
                     <hr style="background-color: #bababa;" />
                     <p class="text-center">Or <a class="text-decoration-none" href="{% url 'password_reset' %}">Forget
-                            password</a></p>
-                    <p class="text-center">Don&#39;t have an account?  <a class="text-decoration-none"
-                            data-dismiss="modal" data-toggle="modal" data-target="#signup" href="#">Sign Up</a></p>
+                            password
+                        </a>
+                    </p>
+                    <p class="text-center">Don&#39;t have an account?  
+                        <a class="text-decoration-none"
+                            data-dismiss="modal" data-toggle="modal" data-target="#signup" href="#">Sign Up
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>

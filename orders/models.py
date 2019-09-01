@@ -40,8 +40,13 @@ class Order(models.Model):
         return f"{self.user} {self.status} {self.amount}"
 
 class Order_detail(models.Model):
+    SIZES = [
+        ('S','Small'),
+        ('L','Large')
+    ]
     order_detail = models.ForeignKey(Order,on_delete=models.CASCADE,related_name="order_details")
     product_detail = models.ForeignKey(Product,on_delete=models.CASCADE,related_name="product_detail",default=0)
+    size = models.CharField(max_length=1,choices=SIZES,default="S")
     quantity = models.IntegerField()
     rate = models.FloatField(default=0)
     topping = models.ManyToManyField(Topping,related_name="order_topping",blank=True)
@@ -49,4 +54,10 @@ class Order_detail(models.Model):
     def __str__(self):
         return f"  {self.quantity} - {self.topping.in_bulk()}"
 
+# class OrderManager(models.Manager):
+#     def topping_check(self,topping_allowed,topping_selected):
 
+#         if topping_allowed != topping_selected:
+#             return False
+#         else:
+#             return True

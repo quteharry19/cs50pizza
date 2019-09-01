@@ -23,9 +23,9 @@ def topping_check(instance):
         print('toppings perfect')            
 
 
-@receiver([m2m_changed,post_save],sender=Order_detail.topping.through)
+@receiver([m2m_changed],sender=Order_detail.topping.through)
 def topping_changed(sender, instance, action, reverse, model, pk_set, using, **kwargs):
-    if action == 'post_add' or action == 'post_remove':
+    if "add" in action: #== 'post_add' or action == 'post_remove':
         topping_check(instance)
 
 

@@ -16,24 +16,20 @@ def index(request):
         return render(request, 'orders/index.html')
 
 def login_view(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request,username=username,password=password)
-    if user is not None :
-        login(request, user)
-        print('authenticated')
-        # context = {
-        #     'user' : user,
-        #     'status' : 'Authenticated'
-        # }
-        messages.success(request, "Logged in Successfully")
-        return redirect('orders_index')
-        #return render(request, 'orders/index.html', context=context)
-    else:
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request,username=username,password=password)
+        if user is not None :
+            login(request, user)
+            print('authenticated',username)
+            messages.success(request, "Logged in Successfully")
+            return redirect('orders_index')
         messages.error(request, " Invalid credentials")
         print('not authenticated')
         return redirect('orders_index')
-        #return render(request, 'orders/index.html')
+    else:
+        return HttpResponseRedirect(reverse('orders_index'))
 
 def blog(request):
     return render(request, 'orders/blog.html')
@@ -98,4 +94,3 @@ def signup(request):
             messages.error(request, f'Login Faield Username {username} already taken')
 
     return HttpResponseRedirect(reverse('orders_index'))
-        #return render(request, 'orders/index.html', context=context)
