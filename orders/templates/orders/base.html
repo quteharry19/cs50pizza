@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="{% static 'orders/css/open-iconic-bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'orders/css/animate.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'orders/css/shoppingcart.css' %}"> -->
 
     <link rel="stylesheet" href="{% static 'orders/css/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'orders/css/owl.theme.default.min.css' %}">
@@ -35,7 +36,8 @@
 
     <!-- <link rel="stylesheet" href="{% static 'orders/css/bootstrap.min.css' %}"> -->
     <!-- <link rel="stylesheet" href="{% static 'orders/css/fonts/fontawesome/font-awesome.min.css' %}"> -->
-
+    <!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" > -->
+    <!-- //ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css -->
     <link rel="stylesheet" href="{% static 'orders/css/mystyle.css' %}">
 
 
@@ -94,6 +96,11 @@
                         </a>
                     </li>
                     {% endif %}
+                    <li class="nav-item" role="presentation">
+                        <a href="#" class="nav-link">
+                            <i class="shopping-cart icon-shopping-cart"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -419,11 +426,12 @@
     <script src="{% static 'orders/js/bootstrap-datepicker.js' %}"></script>
     <script src="{% static 'orders/js/jquery.timepicker.min.js' %}"></script>
     <script src="{% static 'orders/js/scrollax.min.js' %}"></script>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="{% static 'orders/js/google-map.js' %}"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script> -->
+    <!-- <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> -->
+    <!-- <script src="{% static 'orders/js/google-map.js' %}"></script> -->
     <script src="{% static 'orders/js/main.js' %}"></script>
-
+    <script src="{% static 'orders/js/shoppingcart.js' %}"></script>
 </body>
 
 </html>

@@ -160,6 +160,10 @@
                 <form action="{% url 'contactSubmitted' %}" class="contact-form" method="POST">
                     {% csrf_token %}
                     <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <h2 class="h4">Submit to blog</h2>
+                        </div>
+            
                         <div class="col-md-6">
                             <div class="form-group">
                                 <input name="name" type="text" class="form-control" placeholder="Your Name">
@@ -179,7 +183,7 @@
                             placeholder="Message"></textarea>
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+                        <input type="submit" value="Submit Blog" class="btn btn-primary py-3 px-5">
                     </div>
                 </form>
             </div>
