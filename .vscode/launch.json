@@ -12,6 +12,13 @@
             "args": [
                 "runserver"
             ],
+            "env": {
+                "DEBUG" : "True",
+                "PG_DB_PWD" : "86f0f4a8ad59a6142f72d279e01057e4057108017cec5dd991f7e8b59b6e8a82",
+                "MY_EMAIL_PWD" : "monbsphalzehgtmd",
+                "SECRET_KEY" : "i0&iq&e9u9h6(4_7%pt2s9)f=c$kso=k$c$w@fi9215s=1q0^d",
+                "DATABASE_URL" : "postgres://ejbkmjdblbkqaj:86f0f4a8ad59a6142f72d279e01057e4057108017cec5dd991f7e8b59b6e8a82@ec2-54-221-198-156.compute-1.amazonaws.com:5432/d88cu7nd631pqb"
+            },
             "django": true
         }
     ]

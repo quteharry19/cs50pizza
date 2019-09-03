@@ -1,10 +1,19 @@
 
-
 var currentMousePos = { x: -1, y: -1 };
 $(document).mousemove(function(event) {
     currentMousePos.x = event.pageX;
     currentMousePos.y = event.pageY;
 });
+
+
+document.querySelectorAll('.size').forEach(elem =>{
+    elem.addEventListener('change',(event)=>{
+        var price = event.target.options[event.target.selectedIndex].dataset.price
+        var span1 = elem.nextElementSibling.children[0]
+        span1.innerHTML = '$' + price
+    });
+});
+
 
 /*
 	Add to cart fly effect with jQuery. - May 05, 2013
@@ -15,11 +24,11 @@ $(document).mousemove(function(event) {
 $('.add-to-cart').on('click', function (e) {
     e.preventDefault();
     var cart = $('.shopping-cart');
-    var imgtodrag = $('.shop-img')
-    //var imgtodrag = $(this).parent('.container').find(".shop-img").eq(0);
+
+    //var imgtodrag = $('.shop-img').eq(0)
+    var imgtodrag = $(this).parent('p').parent('div').parent('div').find(".shop-img").eq(0);
     
     if (imgtodrag) {
-        //alert(' imgtodrag is true');
         console.log(imgtodrag)
         var imgclone = imgtodrag.clone();  
         
@@ -35,12 +44,6 @@ $('.add-to-cart').on('click', function (e) {
             'z-index': '100'
         })
 
-        // imgclone.offset({
-        //     top: currentMousePos.y,
-        //     left: currentMousePos.x
-        //     //left: imgtodrag.offset().left
-        // });
-        
         imgclone.appendTo($('body'))
 
         imgclone.animate({
@@ -48,14 +51,8 @@ $('.add-to-cart').on('click', function (e) {
             'left': cart.offset().left,
             'width': 40,
             'height': 40
-        }, 500, 'easeInOutExpo');
+        }, 700, 'easeInOutExpo');
         
-        // setTimeout(function () {
-        //     cart.effect("shake", {
-        //         times: 2
-        //     }, 200);
-        // }, 1500);
-
         imgclone.animate({
             'width': 0,
                 'height': 0

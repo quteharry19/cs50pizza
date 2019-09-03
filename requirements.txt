@@ -3,3 +3,4 @@ django-heroku>=0
 waitress>=1.0.1
 gunicorn>=19.9.0
 Pillow>=6.1.0
+psycopg2

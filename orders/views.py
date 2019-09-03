@@ -16,7 +16,7 @@ def index(request):
     
     context = {
         'Products' : Product.objects.all(),
-        'Catagorys': Product_catagory.objects.all()
+        'Catagorys': 'catagory' #Product_catagory.objects.all()
     }
     return render(request, 'orders/index.html',context)
 
@@ -40,7 +40,11 @@ def blog(request):
     return render(request, 'orders/blog.html')
 
 def menu(request):
-    return render(request, 'orders/menu.html')
+    context = {
+        'Products' : Product.objects.all(),
+        'Catagorys': 'catagory' #Product_catagory.objects.all()
+    }
+    return render(request, 'orders/menu.html',context)
 
 def services(request):
     return render(request, 'orders/services.html')

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 heading-section ftco-animate text-center">
-                <h2 class="mb-4">Hot Pizza Meals</h2>
+                <h2 class="mb-4" id="hotpizza">Hot Pizza Meals</h2>
                 <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live
                     the blind texts.</p>
             </div>
@@ -16,16 +16,17 @@
                 {% if 'pizza' in product.catagory|lower %}
                     <div class="col-lg-4 d-flex ftco-animate">
                         <div class="services-wrap d-flex">
-                            <a href="#" class="img shop-img {% cycle '' '' '' 'order-lg-last' 'order-lg-last' 'order-lg-last' %}"
+                            <a href="{{ STATIC_PREFIX }}orders/{{ product.image }}" target="_blank"
+                                class="img shop-img {% cycle '' '' '' 'order-lg-last' 'order-lg-last' 'order-lg-last' %}"
                                 style="background-image: url({{ STATIC_PREFIX }}orders/{{ product.image }});">
                             </a>
                             <div class="text p-4">
                                 <h4>{{ product.generic_name }}</h4>
                                 <!-- , far from the countries Vokalia and Consonantia  -->
                                 <p>Far far away, behind the word mountains</p>
-                                <select name="size" class="form-control form-control-sm">
-                                    <option value="small">Small</option>
-                                    <option value="large">Large</option>
+                                <select name="size" class="size form-control form-control-sm">
+                                    <option value="small" data-price="{{ product.prize_small }}" class="bg-secondary" >Small</option>
+                                    <option value="large" data-price="{{ product.prize_large }}" class="bg-secondary">Large</option>
                                 </select>
                                 <p class="price">
                                     <span>${{ product.prize_small }}</span>
@@ -48,8 +49,10 @@
                     there live the blind texts.</p>
             </div>
         </div>
+        
         <div class="row">
             <div class="col-md-6">
+
                 <div class="pricing-entry d-flex ftco-animate">
                     <div class="img" style="background-image: url({% static 'orders/images/pizza-1.jpg' %});"></div>
                     <div class="desc pl-3">
@@ -62,6 +65,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="pricing-entry d-flex ftco-animate">
                     <div class="img" style="background-image: url({% static 'orders/images/pizza-2.jpg' %});"></div>
                     <div class="desc pl-3">
@@ -74,6 +78,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="pricing-entry d-flex ftco-animate">
                     <div class="img" style="background-image: url({% static 'orders/images/pizza-3.jpg' %});"></div>
                     <div class="desc pl-3">
@@ -86,6 +91,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="pricing-entry d-flex ftco-animate">
                     <div class="img" style="background-image: url({% static 'orders/images/pizza-4.jpg' %});"></div>
                     <div class="desc pl-3">
@@ -98,9 +104,11 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <div class="col-md-6">
+
                 <div class="pricing-entry d-flex ftco-animate">
                     <div class="img" style="background-image: url({% static 'orders/images/pizza-5.jpg' %});"></div>
                     <div class="desc pl-3">
@@ -113,6 +121,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="pricing-entry d-flex ftco-animate">
                     <div class="img" style="background-image: url({% static 'orders/images/pizza-6.jpg' %});"></div>
                     <div class="desc pl-3">
@@ -125,6 +134,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="pricing-entry d-flex ftco-animate">
                     <div class="img" style="background-image: url({% static 'orders/images/pizza-7.jpg' %});"></div>
                     <div class="desc pl-3">
@@ -137,6 +147,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="pricing-entry d-flex ftco-animate">
                     <div class="img" style="background-image: url({% static 'orders/images/pizza-8.jpg' %});"></div>
                     <div class="desc pl-3">
@@ -149,6 +160,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -187,14 +199,15 @@
                                 <div class="row">
                                     <div class="col-md-4 text-center">
                                         <div class="menu-wrap">
-                                            <a href="#" class="menu-img img mb-4"
+                                            <a href="#" class="menu-img img mb-4 shop-img"
                                                 style="background-image: url({% static 'orders/images/pizza-1.jpg' %});"></a>
                                             <div class="text">
                                                 <h3><a href="#">Itallian Pizza</a></h3>
                                                 <p>Far far away, behind the word mountains, far from the countries
                                                     Vokalia and Consonantia.</p>
                                                 <p class="price"><span>$2.90</span></p>
-                                                <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a>
+                                                <p>
+                                                    <a href="#" class="btn btn-white btn-outline-white add-to-cart">Add to cart</a>
                                                 </p>
                                             </div>
                                         </div>
