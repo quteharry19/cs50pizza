@@ -5,26 +5,29 @@ from django.contrib.auth.models import User
 # models.
 
 class Product_catagory(models.Model):
-    Catagory_name = models.CharField("Catagory Name",max_length=64)
+    name = models.CharField("Catagory Name",max_length=64)
 
     def __str__(self):
-        return f"{self.Catagory_name}"
+        return f"{self.name}"
 
 class Product(models.Model):
-    catagory = models.ForeignKey(Product_catagory,on_delete=models.CASCADE,related_name="product_catagory")
-    product_name = models.CharField(max_length=64)
-    product_image = models.ImageField(verbose_name="Product Image",upload_to = "images/",default=None,blank=True)
-    prize_small = models.DecimalField("Prize for Small",max_digits=5,decimal_places=2)
-    prize_large = models.DecimalField("Prize for Large",max_digits=5,decimal_places=2)
+    catagory = models.ForeignKey(
+                Product_catagory, on_delete=models.CASCADE, related_name="product_catagory")
+    name = models.CharField(max_length=64)
+    generic_name = models.CharField(max_length=30,blank=True)
+    image = models.ImageField(
+                verbose_name="Product Image", upload_to="images/", default=None, blank=True)
+    prize_small = models.DecimalField("Prize for Small", max_digits=5, decimal_places=2)
+    prize_large = models.DecimalField("Prize for Large", max_digits=5, decimal_places=2)
 
     def __str__(self):
-        return f"{self.product_name} -{self.catagory}"
+        return f"{self.name} -{self.catagory} - {self.generic_name}"
 
 class Topping(models.Model):
-    topping_name = models.CharField("Topping",max_length=25)
+    name = models.CharField("Topping",max_length=25)
 
     def __str__(self):
-        return f"{self.topping_name}"
+        return f"{self.name}"
 
 class Order(models.Model):
     STATUS = [

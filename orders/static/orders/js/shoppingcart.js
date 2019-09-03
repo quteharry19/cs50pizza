@@ -12,7 +12,8 @@ $(document).mousemove(function(event) {
 	license: https://www.opensource.org/licenses/mit-license.php
 */   
 
-$('.add-to-cart').on('click', function () {
+$('.add-to-cart').on('click', function (e) {
+    e.preventDefault();
     var cart = $('.shopping-cart');
     var imgtodrag = $('.shop-img')
     //var imgtodrag = $(this).parent('.container').find(".shop-img").eq(0);

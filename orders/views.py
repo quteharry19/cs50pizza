@@ -4,16 +4,21 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import Product_catagory,Product,Order,Order_detail,Topping
 from .sendEmail import send_HTML_Email
 
 # Create your views here.
 def index(request):
     if request.user.is_authenticated :
         print('authenticated')
-        return render(request, 'orders/index.html')
     else:
         print('not authenticated')
-        return render(request, 'orders/index.html')
+    
+    context = {
+        'Products' : Product.objects.all(),
+        'Catagorys': Product_catagory.objects.all()
+    }
+    return render(request, 'orders/index.html',context)
 
 def login_view(request):
     if request.method == "POST":

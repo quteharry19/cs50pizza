@@ -1,4 +1,5 @@
 {% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
@@ -11,80 +12,30 @@
     </div>
     <div class="container-wrap">
         <div class="row no-gutters d-flex">
-            <div class="col-lg-4 d-flex ftco-animate">
-                <div class="services-wrap d-flex">
-                    <!-- <img src="{% static 'orders/images/pizza-1.jpg' %}" class="img shop-img" > -->
-                    <a href="#" class="img shop-img"
-                        style="background-image: url({% static 'orders/images/pizza-1.jpg' %});"></a>
-                    <div class="text p-4">
-                        <h3>Italian Pizza</h3>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia </p>
-                        <p class="price"><span>$2.90</span> <button href="#"
-                                class="ml-2 btn btn-white btn-outline-white add-to-cart">Order</button></p>
+            {% for product in Products %}
+                {% if 'pizza' in product.catagory|lower %}
+                    <div class="col-lg-4 d-flex ftco-animate">
+                        <div class="services-wrap d-flex">
+                            <a href="#" class="img shop-img {% cycle '' '' '' 'order-lg-last' 'order-lg-last' 'order-lg-last' %}"
+                                style="background-image: url({{ STATIC_PREFIX }}orders/{{ product.image }});">
+                            </a>
+                            <div class="text p-4">
+                                <h4>{{ product.generic_name }}</h4>
+                                <!-- , far from the countries Vokalia and Consonantia  -->
+                                <p>Far far away, behind the word mountains</p>
+                                <select name="size" class="form-control form-control-sm">
+                                    <option value="small">Small</option>
+                                    <option value="large">Large</option>
+                                </select>
+                                <p class="price">
+                                    <span>${{ product.prize_small }}</span>
+                                    <button class="ml-2 btn btn-white btn-outline-white add-to-cart">Order</button>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex ftco-animate">
-                <div class="services-wrap d-flex">
-                    <a href="#" class="img"
-                        style="background-image: url({% static 'orders/images/pizza-2.jpg' %});"></a>
-                    <div class="text p-4">
-                        <h3>Greek Pizza</h3>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-                        <p class="price"><span>$2.90</span> <a href="#"
-                                class="ml-2 btn btn-white btn-outline-white">Order</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex ftco-animate">
-                <div class="services-wrap d-flex">
-                    <a href="#" class="img"
-                        style="background-image: url({% static 'orders/images/pizza-3.jpg' %});"></a>
-                    <div class="text p-4">
-                        <h3>Caucasian Pizza</h3>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-                        <p class="price"><span>$2.90</span> <a href="#"
-                                class="ml-2 btn btn-white btn-outline-white">Order</a></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 d-flex ftco-animate">
-                <div class="services-wrap d-flex">
-                    <a href="#" class="img order-lg-last"
-                        style="background-image: url({% static 'orders/images/pizza-4.jpg' %});"></a>
-                    <div class="text p-4">
-                        <h3>American Pizza</h3>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia </p>
-                        <p class="price"><span>$2.90</span> <a href="#"
-                                class="ml-2 btn btn-white btn-outline-white">Order</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex ftco-animate">
-                <div class="services-wrap d-flex">
-                    <a href="#" class="img order-lg-last"
-                        style="background-image: url({% static 'orders/images/pizza-5.jpg' %});"></a>
-                    <div class="text p-4">
-                        <h3>Tomatoe Pie</h3>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-                        <p class="price"><span>$2.90</span> <a href="#"
-                                class="ml-2 btn btn-white btn-outline-white">Order</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex ftco-animate">
-                <div class="services-wrap d-flex">
-                    <a href="#" class="img order-lg-last"
-                        style="background-image: url({% static 'orders/images/pizza-6.jpg' %});"></a>
-                    <div class="text p-4">
-                        <h3>Margherita</h3>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-                        <p class="price"><span>$2.90</span> <a href="#"
-                                class="ml-2 btn btn-white btn-outline-white">Order</a></p>
-                    </div>
-                </div>
-            </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 
