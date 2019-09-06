@@ -1,4 +1,5 @@
 {% load static %}
+{% load setvar %}
 {% get_static_prefix as STATIC_PREFIX %}
 <section class="ftco-section">
     <div class="container">
@@ -25,11 +26,11 @@
                                 <!-- , far from the countries Vokalia and Consonantia  -->
                                 <p>Far far away, behind the word mountains</p>
                                 <select name="size" class="size form-control form-control-sm">
-                                    <option value="small" data-price="{{ product.prize_small }}" class="bg-secondary" >Small</option>
-                                    <option value="large" data-price="{{ product.prize_large }}" class="bg-secondary">Large</option>
+                                    <option value="small" data-price="{{ product.price_small }}" class="bg-secondary" >Small</option>
+                                    <option value="large" data-price="{{ product.price_large }}" class="bg-secondary">Large</option>
                                 </select>
                                 <p class="price">
-                                    <span>${{ product.prize_small }}</span>
+                                    <span>${{ product.price_small }}</span>
                                     <button class="ml-2 btn btn-white btn-outline-white add-to-cart">Order</button>
                                 </p>
                             </div>
@@ -51,117 +52,87 @@
         </div>
         
         <div class="row">
-            <div class="col-md-6">
 
-                <div class="pricing-entry d-flex ftco-animate">
-                    <div class="img" style="background-image: url({% static 'orders/images/pizza-1.jpg' %});"></div>
-                    <div class="desc pl-3">
-                        <div class="d-flex text align-items-center">
-                            <h3><span>Italian Pizza</span></h3>
-                            <span class="price">$20.00</span>
+            {% for catagory in Catagorys %}
+                {% if catagory.name != "SubsExtra" %}
+                <div class="col-md-6">
+                    <div class="d-flex flex-row">
+
+                        <h2 class="flex-grow-1">{{ catagory }}</h2>
+                        
+                        <div class="float-right">
+                            <span class="p-2 ">Small</span>
+                            <span class="p-2 ">Large</span>
                         </div>
-                        <div class="d-block">
-                            <p>A small river named Duden flows by their place and supplies</p>
-                        </div>
+                        
                     </div>
+                    {% for product in catagory.product_catagory.all %}
+                        
+                        <div class="pricing-entry d-flex ftco-animate">
+                            
+                            <div class="img shop-img" 
+                            style="background-image: url({{ STATIC_PREFIX }}orders/{{ product.image }});">
+                            </div>
+
+                            <div class="desc pl-3">
+
+                                <div class="d-flex text align-items-center">
+                                    <h3>
+                                        <span>{{ product.name }}</span>
+                                    </h3>
+                                    {% get_num_top product.name|first as numTop %}
+                                    {% if numTop %}
+                                    {% endif %}
+                                    <span class="price">${{ product.price_small }}</span>
+                                    <span class="price">${{ product.price_large }}</span>
+                                </div>
+
+                                <div class="d-block">
+                                    <!-- <p>A small river named Duden flows by their place and supplies</p> -->
+                                    
+                                    {% if 'pizza' in catagory.name|lower %}
+                                    <select multiple name="topping"
+                                        title="Select Toppings"
+                                        data-container="body"
+                                        data-width="fit"
+                                        data-size="4"
+                                        data-style=""
+                                        data-max-options="3"
+                                        class="selectpicker">
+                                        {% for topping in Toppings %}
+                                            <option 
+                                                style="background:#121312;" >
+                                                {{ topping.name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% endif %}
+
+                                    {% if 'subs' in catagory.name|lower %}
+                                    <select multiple name="subsextra"
+                                        title="Add Extras"
+                                        data-container="body"
+                                        data-width="fit"
+                                        data-size="4"
+                                        data-style=""
+                                        class="selectpicker">
+                                        {% for prod in SubsExtra %}
+                                            <option 
+                                                style="background:#121312;" >
+                                                {{ prod.name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    {% endif %}
+                                    <button class="ml-2 btn btn-white btn-outline-white float-right add-to-cart">Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-
-                <div class="pricing-entry d-flex ftco-animate">
-                    <div class="img" style="background-image: url({% static 'orders/images/pizza-2.jpg' %});"></div>
-                    <div class="desc pl-3">
-                        <div class="d-flex text align-items-center">
-                            <h3><span>Hawaiian Pizza</span></h3>
-                            <span class="price">$29.00</span>
-                        </div>
-                        <div class="d-block">
-                            <p>A small river named Duden flows by their place and supplies</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pricing-entry d-flex ftco-animate">
-                    <div class="img" style="background-image: url({% static 'orders/images/pizza-3.jpg' %});"></div>
-                    <div class="desc pl-3">
-                        <div class="d-flex text align-items-center">
-                            <h3><span>Greek Pizza</span></h3>
-                            <span class="price">$20.00</span>
-                        </div>
-                        <div class="d-block">
-                            <p>A small river named Duden flows by their place and supplies</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pricing-entry d-flex ftco-animate">
-                    <div class="img" style="background-image: url({% static 'orders/images/pizza-4.jpg' %});"></div>
-                    <div class="desc pl-3">
-                        <div class="d-flex text align-items-center">
-                            <h3><span>Bacon Crispy Thins</span></h3>
-                            <span class="price">$20.00</span>
-                        </div>
-                        <div class="d-block">
-                            <p>A small river named Duden flows by their place and supplies</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="col-md-6">
-
-                <div class="pricing-entry d-flex ftco-animate">
-                    <div class="img" style="background-image: url({% static 'orders/images/pizza-5.jpg' %});"></div>
-                    <div class="desc pl-3">
-                        <div class="d-flex text align-items-center">
-                            <h3><span>Hawaiian Special</span></h3>
-                            <span class="price">$49.91</span>
-                        </div>
-                        <div class="d-block">
-                            <p>A small river named Duden flows by their place and supplies</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pricing-entry d-flex ftco-animate">
-                    <div class="img" style="background-image: url({% static 'orders/images/pizza-6.jpg' %});"></div>
-                    <div class="desc pl-3">
-                        <div class="d-flex text align-items-center">
-                            <h3><span>Ultimate Overload</span></h3>
-                            <span class="price">$20.00</span>
-                        </div>
-                        <div class="d-block">
-                            <p>A small river named Duden flows by their place and supplies</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pricing-entry d-flex ftco-animate">
-                    <div class="img" style="background-image: url({% static 'orders/images/pizza-7.jpg' %});"></div>
-                    <div class="desc pl-3">
-                        <div class="d-flex text align-items-center">
-                            <h3><span>Bacon Pizza</span></h3>
-                            <span class="price">$20.00</span>
-                        </div>
-                        <div class="d-block">
-                            <p>A small river named Duden flows by their place and supplies</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pricing-entry d-flex ftco-animate">
-                    <div class="img" style="background-image: url({% static 'orders/images/pizza-8.jpg' %});"></div>
-                    <div class="desc pl-3">
-                        <div class="d-flex text align-items-center">
-                            <h3><span>Ham &amp; Pineapple</span></h3>
-                            <span class="price">$20.00</span>
-                        </div>
-                        <div class="d-block">
-                            <p>A small river named Duden flows by their place and supplies</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+                {% else %}
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 </section>

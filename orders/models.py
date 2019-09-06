@@ -17,8 +17,8 @@ class Product(models.Model):
     generic_name = models.CharField(max_length=30,blank=True)
     image = models.ImageField(
                 verbose_name="Product Image", upload_to="images/", default=None, blank=True)
-    prize_small = models.DecimalField("Prize for Small", max_digits=5, decimal_places=2)
-    prize_large = models.DecimalField("Prize for Large", max_digits=5, decimal_places=2)
+    price_small = models.DecimalField("Prize for Small", max_digits=5, decimal_places=2)
+    price_large = models.DecimalField("Prize for Large", max_digits=5, decimal_places=2)
 
     def __str__(self):
         return f"{self.name} -{self.catagory} - {self.generic_name}"

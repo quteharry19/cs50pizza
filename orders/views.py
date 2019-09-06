@@ -15,9 +15,12 @@ def index(request):
         print('not authenticated')
     
     context = {
-        'Products' : Product.objects.all(),
-        'Catagorys': 'catagory' #Product_catagory.objects.all()
+        'Products' : Product.objects.all().order_by('catagory__name'),
+        'Catagorys': Product_catagory.objects.all(),
+        'Toppings' : Topping.objects.all().order_by('name'),
+        'SubsExtra' : Product.objects.filter(catagory__name = "SubsExtra")
     }
+    print('query done')
     return render(request, 'orders/index.html',context)
 
 def login_view(request):

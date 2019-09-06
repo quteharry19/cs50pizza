@@ -1,3 +1,6 @@
+$(function () {
+    $('.selectpicker').selectpicker();
+});
 
 var currentMousePos = { x: -1, y: -1 };
 $(document).mousemove(function(event) {
@@ -34,7 +37,7 @@ $('.add-to-cart').on('click', function (e) {
         
 
         imgclone.css({
-            'opacity': '0.5',
+            'opacity': '0.8',
             'position': 'absolute',
             'height': '150px',
             'width': '150px',
