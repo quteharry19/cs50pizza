@@ -7,7 +7,7 @@ HOME
 
 {% block content %}
 <!-- owl carousel -->
-<section class="home-slider owl-carousel img" style="background-image: url({% static 'orders/images/bg_1.jpg' %});">
+<section class="home-slider owl-carousel img shop-img" style="background-image: url({% static 'orders/images/bg_1.jpg' %});">
     <div class="slider-item">
         <div class="overlay"></div>
         <div class="container">
@@ -40,11 +40,13 @@ HOME
                     <h1 class="mb-4">Italian Pizza</h1>
                     <p class="mb-4 mb-md-5">A small river named Duden flows by their place and supplies it with the
                         necessary regelialia.</p>
-                    <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3 add-to-cart">Order Now</a>
-                        <a href="{% url 'menu' %}" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
+                    <p>
+                        <button class="btn btn-primary p-3 px-xl-4 py-xl-3 add-to-cart">Order Now</button>
+                        <a href="{% url 'menu' %}" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a>
+                    </p>
                 </div>
                 <div class="col-md-6 ftco-animate">
-                    <img src="{% static 'orders/images/bg_2.png' %}" class="img-fluid" alt="">
+                    <img src="{% static 'orders/images/bg_2.png' %}" class="img-fluid shop-img" alt="">
                 </div>
 
             </div>
@@ -62,7 +64,7 @@ HOME
                     <p class="mb-4 mb-md-5">A small river named Duden flows by their place and supplies it with the
                         necessary regelialia.</p>
                     <p>
-                        <a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3 add-to-cart">Order Now</a>
+                        <a href="{% url 'contact' %}" class="btn btn-primary p-3 px-xl-4 py-xl-3">Book a table Now</a>
                         <a href="{% url 'menu' %}" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
                 </div>
 

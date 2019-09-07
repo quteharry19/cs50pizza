@@ -4,12 +4,11 @@ register = template.Library()
 
 
 @register.simple_tag
-def get_num_top(val=None):
-    return val
-
-def letInt(val=None):
-    try:
-        return int(val)
-    except ValueError:
-        return False
-    
+def get_num_top(name=None):
+    if name.lower() == "cheese":
+        num_top = 0
+    elif name.lower() == "special":
+        num_top = ""
+    else :
+        num_top = name[0]
+    return num_top
