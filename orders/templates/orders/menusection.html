@@ -23,7 +23,7 @@
                         <div class="services-wrap d-flex">
                             <a href="{{ STATIC_PREFIX }}orders/{{ product.image }}" target="_blank"
                                 class="img shop-img {% cycle '' '' '' 'order-lg-last' 'order-lg-last' 'order-lg-last' %}"
-                                data-prodID="{{ product.id }}"
+                                data-prodid="{{ product.id }}"
                                 style="background-image: url({{ STATIC_PREFIX }}orders/{{ product.image }});">
                             </a>
                             <div class="text p-4">
@@ -76,7 +76,7 @@
                         
                         <div class="pricing-entry d-flex ftco-animate">
                             
-                            <div class="img shop-img" data-prodID="{{ product.id }}"
+                            <div class="img shop-img" data-prodid="{{ product.id }}"
                             style="background-image: url({{ STATIC_PREFIX }}orders/{{ product.image }});">
                             </div>
 
@@ -97,50 +97,56 @@
                                     {% if 'pizza' in catagory.name|lower %}
 
                                     {% get_num_top product.name as numTop %}
-                                    {% if numTop != 0 %}
-                                    <select multiple name="topping"
-                                        title="Select Toppings"
-                                        data-container="body"
-                                        data-width="fit"
-                                        data-size="4"
-                                        data-style=""
-                                        data-max-options="{{ numTop }}"
-                                        class="selectpicker">
-                                        {% for topping in Toppings %}
-                                            <option 
-                                                style="background:#121312;" >
-                                                {{ topping.name }}
-                                            </option>
-                                        {% endfor %}
-                                    </select>
-                                    {% endif %}
+                                        {% if numTop != 0 %}
+                                            <select multiple name="topping"
+                                                title="Select Toppings"
+                                                data-container="body"
+                                                data-width="150px"
+                                                data-size="4"
+                                                data-style="text-light bg-dark"
+                                                data-max-options="{{ numTop }}"
+                                                class="selectpicker">
+                                                {% for topping in Toppings %}
+                                                    <option 
+                                                        style="background: #000000;" >
+                                                        {{ topping.name }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                        {% endif %}
+                                    {% elif 'subs' in catagory.name|lower %}
+                                        <select multiple name="subsextra"
+                                            title="Add Extras"
+                                            data-container="body"
+                                            data-width="150px"
+                                            data-size="4"
+                                            data-style="text-light bg-dark"
+                                            class="selectpicker">
+                                            {% for prod in SubsExtra %}
+                                                <option 
+                                                    style="background: #000000;" >
+                                                    {{ prod.name }} + ${{ prod.price_large }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
                                     {% endif %}
 
-                                    {% if 'subs' in catagory.name|lower %}
-                                    <select multiple name="subsextra"
-                                        title="Add Extras"
-                                        data-container="body"
-                                        data-width="fit"
-                                        data-size="4"
-                                        data-style=""
-                                        class="selectpicker">
-                                        {% for prod in SubsExtra %}
-                                            <option 
-                                                style="background:#121312;" >
-                                                {{ prod.name }} + ${{ prod.price_large }}
-                                            </option>
-                                        {% endfor %}
-                                    </select>
-                                    {% endif %}
+                                    <p class="d-inline-block">
+                                        <select name="size" class="size form-control-sm text-light bg-dark">
+                                            <option value="small" data-price="{{ product.price_small }}" class="bg-secondary" >Small</option>
+                                            <option value="large" data-price="{{ product.price_large }}" class="bg-secondary">Large</option>
+                                        </select>
+                                    </p>
+
                                     <p class="d-inline-block float-right">
                                         <button class="ml-2 btn btn-white btn-outline-white add-to-cart">Order</button>
                                     </p>
+
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
-                {% else %}
                 {% endif %}
             {% endfor %}
         </div>

@@ -61,7 +61,13 @@ $('.add-to-cart').on('click', function (e) {
                 'height': 0
         }, function () {
             $(this).detach()
-            // alert($(this).data('prodID'))
+            var cartItems = localStorage.getItem('cartItems');
+            if (!cartItems){
+                var cartItems = []
+                localStorage.setItem('cartItems',cartItems)
+            }
+
+            alert(imgtodrag.data('prodid'))
         });
     }
 });
