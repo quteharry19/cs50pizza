@@ -107,7 +107,7 @@
                                                 data-max-options="{{ numTop }}"
                                                 class="selectpicker">
                                                 {% for topping in Toppings %}
-                                                    <option 
+                                                    <option value="{{ topping.name }}"
                                                         style="background: #000000;" >
                                                         {{ topping.name }}
                                                     </option>
@@ -123,7 +123,7 @@
                                             data-style="text-light bg-dark"
                                             class="selectpicker">
                                             {% for prod in SubsExtra %}
-                                                <option 
+                                                <option value="{{ prod.name }}"
                                                     style="background: #000000;" >
                                                     {{ prod.name }} + ${{ prod.price_large }}
                                                 </option>
@@ -220,10 +220,9 @@
                                                 </select>
                         
                                                 <p class="price">
-                                                    <span>${{ product.price_small }}</span>
+                                                    <span>$ {{ product.price_small }}</span>
                                                     <button class="btn btn-white btn-outline-white add-to-cart">Add to cart</button>
                                                 </p>
-
                                             </div>
                                         </div>
                                     </div>

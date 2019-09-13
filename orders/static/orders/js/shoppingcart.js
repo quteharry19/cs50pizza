@@ -12,17 +12,13 @@ $(document).mousemove(function(event) {
 document.querySelectorAll('.size').forEach(elem =>{
     elem.addEventListener('change',(event)=>{
         var price = event.target.options[event.target.selectedIndex].dataset.price
-        var span1 = elem.nextElementSibling.children[0]
-        span1.innerHTML = '$ ' + price
+        
+        if (elem.nextElementSibling.children[0]){
+            var span1 = elem.nextElementSibling.children[0]
+            span1.innerHTML = '$ ' + price
+        }
     });
 });
-
-
-/*
-	Add to cart fly effect with jQuery. - May 05, 2013
-	(c) 2013 @ElmahdiMahmoud - fikra-masri.by
-	license: https://www.opensource.org/licenses/mit-license.php
-*/   
 
 $('.add-to-cart').on('click', function (e) {
     e.preventDefault();
@@ -30,11 +26,14 @@ $('.add-to-cart').on('click', function (e) {
 
     //var imgtodrag = $('.shop-img').eq(0)
     var imgtodrag = $(this).parent('p').parent('div').parent('div').parent('div').find(".shop-img").eq(0);
-    
+
+    var itemSize = $(this).parent('p').parent('div').find('.size').eq(0);
+
+    var itemPrice = $(itemSize).find(':selected').data('price')
+
+
     if (imgtodrag) {
-        console.log(imgtodrag)
         var imgclone = imgtodrag.clone();  
-    
 
         imgclone.css({
             'opacity': '0.8',
@@ -61,13 +60,29 @@ $('.add-to-cart').on('click', function (e) {
                 'height': 0
         }, function () {
             $(this).detach()
-            var cartItems = localStorage.getItem('cartItems');
-            if (!cartItems){
+
+            if (!localStorage.getItem('cartItems')){
                 var cartItems = []
-                localStorage.setItem('cartItems',cartItems)
+                localStorage.setItem('cartItems',JSON.stringify(cartItems));
+            } else {
+                var cartItems = JSON.parse(localStorage.getItem('cartItems'));
             }
 
-            alert(imgtodrag.data('prodid'))
+            var item = {
+                'prodid' : imgclone.data('prodid'),
+                'size' : $(itemSize).val(),
+                'quantity' : 1,
+                'topping' : ['Pepproni','Mushroom','Onions'],
+                'rate' : parseFloat(itemPrice) ,
+                // 'img' : imgtodrag
+            }
+
+            cartItems.push(item)
+
+            console.log(cartItems);
+
+            localStorage.setItem('cartItems',JSON.stringify(cartItems));
+
         });
     }
 });
