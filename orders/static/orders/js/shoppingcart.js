@@ -31,6 +31,27 @@ $('.add-to-cart').on('click', function (e) {
 
     var itemPrice = $(itemSize).find(':selected').data('price')
 
+    var selectedToppings = []
+    var selectTopping = $(this).parent('p').parent('div').find('#topping').eq(0);
+    var optionTopping = $(selectTopping).find('option:selected');
+    optionTopping.each(function (){
+        if ($(this).data('topping') === undefined) {
+            var topToAdd = ""
+        } else {
+            var topToAdd = $(this).data('topping')
+        }
+        selectedToppings.push(topToAdd);
+    });
+
+    var selectedExtras = []
+    var selectExtra = $(this).parent('p').parent('div').find('#extras').eq(0);
+    var optionExtra = $(selectExtra).find('option:selected');
+    optionExtra.each(function (){
+        const extra = $(this).data('extra');
+        const price = $(this).data('price');
+        selectedExtras.push({[extra] : price})
+    });
+
 
     if (imgtodrag) {
         var imgclone = imgtodrag.clone();  
@@ -72,7 +93,8 @@ $('.add-to-cart').on('click', function (e) {
                 'prodid' : imgclone.data('prodid'),
                 'size' : $(itemSize).val(),
                 'quantity' : 1,
-                'topping' : ['Pepproni','Mushroom','Onions'],
+                'topping' : selectedToppings,
+                'extras' : selectedExtras,
                 'rate' : parseFloat(itemPrice) ,
                 // 'img' : imgtodrag
             }

@@ -98,7 +98,7 @@
 
                                     {% get_num_top product.name as numTop %}
                                         {% if numTop != 0 %}
-                                            <select multiple name="topping"
+                                            <select multiple id="topping" name="topping"
                                                 title="Select Toppings"
                                                 data-container="body"
                                                 data-width="150px"
@@ -108,6 +108,8 @@
                                                 class="selectpicker">
                                                 {% for topping in Toppings %}
                                                     <option value="{{ topping.name }}"
+                                                        data-topping="{{ topping.name }}"
+                                                        data-price="0"
                                                         style="background: #000000;" >
                                                         {{ topping.name }}
                                                     </option>
@@ -115,7 +117,7 @@
                                             </select>
                                         {% endif %}
                                     {% elif 'subs' in catagory.name|lower %}
-                                        <select multiple name="subsextra"
+                                        <select multiple id="extras" name="subsextra"
                                             title="Add Extras"
                                             data-container="body"
                                             data-width="150px"
@@ -124,6 +126,8 @@
                                             class="selectpicker">
                                             {% for prod in SubsExtra %}
                                                 <option value="{{ prod.name }}"
+                                                    data-extra="{{ prod.name }}"
+                                                    data-price="{{ prod.price_large }}"
                                                     style="background: #000000;" >
                                                     {{ prod.name }} + ${{ prod.price_large }}
                                                 </option>
