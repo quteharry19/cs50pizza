@@ -6,13 +6,13 @@
 <head>
     <title>Pinochio's Pizza - {% block title %} {% endblock %}</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
     <link rel="icon" href="{% static 'orders/images/icon.jpg' %}">
 
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do">
 
     <link rel="stylesheet" href="{% static 'orders/css/open-iconic-bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'orders/css/animate.css' %}">
@@ -29,11 +29,6 @@
     <!-- for bootstrap-select -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
 
-
-    <!-- <link rel="stylesheet" href="{% static 'orders/css/bootstrap.min.css' %}"> -->
-    <!-- <link rel="stylesheet" href="{% static 'orders/css/fonts/fontawesome/font-awesome.min.css' %}"> -->
-    <!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" > -->
-    <!-- //ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css -->
     <link rel="stylesheet" href="{% static 'orders/css/mystyle.css' %}">
 
 
@@ -50,11 +45,6 @@
                 Pinochio's<br>
                 <small>Pizza & Subs</small>
             </a>
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span> Menu
-            </button>
 
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
@@ -92,13 +82,18 @@
                         </a>
                     </li>
                     {% endif %}
-                    <li class="nav-item" role="presentation">
-                        <a href="#" class="nav-link">
-                            <i class="shopping-cart icon-shopping-cart"></i>
-                        </a>
-                    </li>
                 </ul>
             </div>
+
+            <a class="nav-link active" href="#" data-toggle="modal" data-target="#cart">
+                <i class="shopping-cart icon-shopping-cart"></i>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span>
+            </button>
+
         </div>
     </nav>
 
@@ -289,6 +284,112 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" role="dialog" tabindex="-1" id="signup">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-image: url({% static 'orders/images/bg_4.jpg' %});">
+                <div class="modal-header">
+                    <h4 class="modal-title">Your Cart</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="mt-4" method="POST" action="{% url 'signup' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="text-primary input-group-text">
+                                        <i class="icon-user-o"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control ml-1" type="text" required placeholder="username"
+                                    name="username" />
+                                <div class="input-group-append"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="text-primary input-group-text">
+                                        <i class="icon-lock_outline"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control ml-1" type="password" required placeholder="Password"
+                                    name="password" />
+                                <div class="input-group-append"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="text-primary input-group-text">
+                                        <i class="icon-user-o"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control ml-1" type="text" placeholder="First Name"
+                                    name="first_name" />
+                                <div class="input-group-append"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="text-primary input-group-text">
+                                        <i class="icon-user-o"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control ml-1" type="text" placeholder="Last Name" name="last_name" />
+                                <div class="input-group-append"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="text-primary input-group-text">
+                                        <i class="icon-envelope-o"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control ml-1" type="email" required placeholder="Email"
+                                    name="email" />
+                                <div class="input-group-append"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="formCheck-1" required checked />
+                                <label class="form-check-label" for="formCheck-1">
+                                    I agree all the terms and conditions.
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-lg text-white" style="width: 100%;" type="submit">
+                                Sign Up
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr style="background-color: #bababa;" />
+                    <p class="text-center">
+                        Already have an Account? 
+                        <a class="text-decoration-none" data-dismiss="modal" data-toggle="modal" data-target="#signin"
+                            href="#">
+                            Log In
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- END nav -->
 
     {% block content %}

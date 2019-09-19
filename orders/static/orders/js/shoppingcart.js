@@ -32,7 +32,7 @@ $('.add-to-cart').on('click', function (e) {
     var itemPrice = $(itemSize).find(':selected').data('price')
 
     var selectedToppings = []
-    var selectTopping = $(this).parent('p').parent('div').find('#topping').eq(0);
+    var selectTopping = $(this).parent('p').parent('div').find('[name=topping]').eq(0);
     var optionTopping = $(selectTopping).find('option:selected');
     optionTopping.each(function (){
         if ($(this).data('topping') === undefined) {
