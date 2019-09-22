@@ -56,10 +56,9 @@
                     <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                             welcome {{ user.first_name }}
-                            </a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            welcome {{ user.first_name }}
+                        </a>
                         <div class="dropdown-menu mt-0" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'password_reset' %}">Reset Password</a>
                             <a class="dropdown-item" href="#">Another action</a>
@@ -70,8 +69,7 @@
                     {% else %}
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" href="#">
-                            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#signin"
-                                type="button">Log In</button>
+                            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#signin" type="button">Log In</button>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
@@ -88,9 +86,8 @@
             <a class="nav-link active" href="#" data-toggle="modal" data-target="#cart">
                 <i class="shopping-cart icon-shopping-cart"></i>
             </a>
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span>
             </button>
 
@@ -98,28 +95,21 @@
     </nav>
 
     <!-- message bar -->
-    {% if messages %}
-    {% for message in messages %}
-    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    {% if messages %} {% for message in messages %} {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>{{ message }}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {% endif %}
-
-    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    {% endif %} {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>{{ message }}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {% endif %}
-
-    {% endfor %}
-    {% endif %}
+    {% endif %} {% endfor %} {% endif %}
 
     <!-- bootstrap modal -->
     <div class="modal fade" role="dialog" tabindex="-1" id="signin">
@@ -143,8 +133,7 @@
                                         <i class="icon-user"></i>
                                     </span>
                                 </div>
-                                <input class="form-control ml-1" type="text" required placeholder=" username"
-                                    name="username" />
+                                <input class="form-control ml-1" type="text" required placeholder=" username" name="username" />
                                 <div class="input-group-append"></div>
                             </div>
                         </div>
@@ -155,8 +144,7 @@
                                         <i class="icon-lock_outline"></i>
                                     </span>
                                 </div>
-                                <input class="form-control ml-1" type="password" required placeholder="Password"
-                                    name="password" />
+                                <input class="form-control ml-1" type="password" required placeholder="Password" name="password" />
                                 <div class="input-group-append"></div>
                             </div>
                         </div>
@@ -170,9 +158,8 @@
                             password
                         </a>
                     </p>
-                    <p class="text-center">Don&#39;t have an account?  
-                        <a class="text-decoration-none"
-                            data-dismiss="modal" data-toggle="modal" data-target="#signup" href="#">Sign Up
+                    <p class="text-center">Don&#39;t have an account?
+                        <a class="text-decoration-none" data-dismiss="modal" data-toggle="modal" data-target="#signup" href="#">Sign Up
                         </a>
                     </p>
                 </div>
@@ -199,8 +186,7 @@
                                         <i class="icon-user-o"></i>
                                     </span>
                                 </div>
-                                <input class="form-control ml-1" type="text" required placeholder="username"
-                                    name="username" />
+                                <input class="form-control ml-1" type="text" required placeholder="username" name="username" />
                                 <div class="input-group-append"></div>
                             </div>
                         </div>
@@ -212,8 +198,7 @@
                                         <i class="icon-lock_outline"></i>
                                     </span>
                                 </div>
-                                <input class="form-control ml-1" type="password" required placeholder="Password"
-                                    name="password" />
+                                <input class="form-control ml-1" type="password" required placeholder="Password" name="password" />
                                 <div class="input-group-append"></div>
                             </div>
                         </div>
@@ -225,8 +210,7 @@
                                         <i class="icon-user-o"></i>
                                     </span>
                                 </div>
-                                <input class="form-control ml-1" type="text" placeholder="First Name"
-                                    name="first_name" />
+                                <input class="form-control ml-1" type="text" placeholder="First Name" name="first_name" />
                                 <div class="input-group-append"></div>
                             </div>
                         </div>
@@ -250,8 +234,7 @@
                                         <i class="icon-envelope-o"></i>
                                     </span>
                                 </div>
-                                <input class="form-control ml-1" type="email" required placeholder="Email"
-                                    name="email" />
+                                <input class="form-control ml-1" type="email" required placeholder="Email" name="email" />
                                 <div class="input-group-append"></div>
                             </div>
                         </div>
@@ -274,9 +257,8 @@
 
                     <hr style="background-color: #bababa;" />
                     <p class="text-center">
-                        Already have an Account? 
-                        <a class="text-decoration-none" data-dismiss="modal" data-toggle="modal" data-target="#signin"
-                            href="#">
+                        Already have an Account?
+                        <a class="text-decoration-none" data-dismiss="modal" data-toggle="modal" data-target="#signin" href="#">
                             Log In
                         </a>
                     </p>
@@ -285,7 +267,7 @@
         </div>
     </div>
 
-    <div class="modal fade" role="dialog" tabindex="-1" id="signup">
+    <div class="modal fade" role="dialog" tabindex="-1" id="cart">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content" style="background-image: url({% static 'orders/images/bg_4.jpg' %});">
                 <div class="modal-header">
@@ -297,106 +279,42 @@
                 <div class="modal-body">
                     <form class="mt-4" method="POST" action="{% url 'signup' %}">
                         {% csrf_token %}
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="text-primary input-group-text">
-                                        <i class="icon-user-o"></i>
-                                    </span>
-                                </div>
-                                <input class="form-control ml-1" type="text" required placeholder="username"
-                                    name="username" />
-                                <div class="input-group-append"></div>
-                            </div>
+                        <div class="cart-items card">
+                            <ul id="cartUL" class="list-group list-group-flush">
+                            </ul>
                         </div>
-
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="text-primary input-group-text">
-                                        <i class="icon-lock_outline"></i>
-                                    </span>
-                                </div>
-                                <input class="form-control ml-1" type="password" required placeholder="Password"
-                                    name="password" />
-                                <div class="input-group-append"></div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="text-primary input-group-text">
-                                        <i class="icon-user-o"></i>
-                                    </span>
-                                </div>
-                                <input class="form-control ml-1" type="text" placeholder="First Name"
-                                    name="first_name" />
-                                <div class="input-group-append"></div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="text-primary input-group-text">
-                                        <i class="icon-user-o"></i>
-                                    </span>
-                                </div>
-                                <input class="form-control ml-1" type="text" placeholder="Last Name" name="last_name" />
-                                <div class="input-group-append"></div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="text-primary input-group-text">
-                                        <i class="icon-envelope-o"></i>
-                                    </span>
-                                </div>
-                                <input class="form-control ml-1" type="email" required placeholder="Email"
-                                    name="email" />
-                                <div class="input-group-append"></div>
+                        <div class="pricing-entry">
+                            <div class="d-flex text align-items-center">
+                                <h3>
+                                    <span>Total</span>
+                                </h3>
+                                <span id="total_price" class="price">$0.00</span>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="formCheck-1" required checked />
-                                <label class="form-check-label" for="formCheck-1">
+                                <input class="form-check-input" type="checkbox" id="formCheck-2" required checked />
+                                <label class="form-check-label" for="formCheck-2">
                                     I agree all the terms and conditions.
                                 </label>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <button class="btn btn-primary btn-lg text-white" style="width: 100%;" type="submit">
-                                Sign Up
+                            <button id="checkout" class="btn btn-primary btn-lg text-white" style="width: 100%;" type="submit">
+                                Checkout Now
                             </button>
                         </div>
                     </form>
-
-                    <hr style="background-color: #bababa;" />
-                    <p class="text-center">
-                        Already have an Account? 
-                        <a class="text-decoration-none" data-dismiss="modal" data-toggle="modal" data-target="#signin"
-                            href="#">
-                            Log In
-                        </a>
-                    </p>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <!-- END nav -->
 
-    {% block content %}
-
-    {% endblock %}
-
-    {% block foot %}
+    {% block content %} {% endblock %} {% block foot %}
     <footer class="ftco-footer ftco-section img">
         <div class="overlay"></div>
         <div class="container">
@@ -404,8 +322,7 @@
                 <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
                     <div class="ftco-footer-widget mb-4">
                         <h2 class="ftco-heading-2">About Us</h2>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-                            there live the blind texts.</p>
+                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                         <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                             <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                             <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -417,8 +334,7 @@
                     <div class="ftco-footer-widget mb-4">
                         <h2 class="ftco-heading-2">Recent Blog</h2>
                         <div class="block-21 mb-4 d-flex">
-                            <a class="blog-img mr-4"
-                                style="background-image: url({% static 'orders/images/image_1.jpg' %});"></a>
+                            <a class="blog-img mr-4" style="background-image: url({% static 'orders/images/image_1.jpg' %});"></a>
                             <div class="text">
                                 <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a>
                                 </h3>
@@ -430,8 +346,7 @@
                             </div>
                         </div>
                         <div class="block-21 mb-4 d-flex">
-                            <a class="blog-img mr-4"
-                                style="background-image: url({% static 'orders/images/image_2.jpg' %});"></a>
+                            <a class="blog-img mr-4" style="background-image: url({% static 'orders/images/image_2.jpg' %});"></a>
                             <div class="text">
                                 <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a>
                                 </h3>
@@ -465,7 +380,8 @@
                                         50 Lake Pearl Garden
                                         Airport Road Lalghati, Bhopal, M.P., INDIA</span>
                                 </li>
-                                <li><a href="#">
+                                <li>
+                                    <a href="#">
                                         <span class="icon icon-phone"></span>
                                         <span class="text">+91 9993162097</span>
                                     </a>
@@ -487,8 +403,7 @@
                             document.write(new Date().getFullYear());
                         </script>
                         All rights reserved | This web app is made with
-                        <i class="icon-heart" aria-hidden="true"></i>
-                        by
+                        <i class="icon-heart" aria-hidden="true"></i> by
                         <a href="https://colorlib.com" target="_blank">Harish Ahuja</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>

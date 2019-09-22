@@ -44,8 +44,10 @@ def blog(request):
 
 def menu(request):
     context = {
-        'Products' : Product.objects.all(),
-        'Catagorys': 'catagory' #Product_catagory.objects.all()
+        'Products' : Product.objects.all().order_by('catagory__name'),
+        'Catagorys': Product_catagory.objects.all(),
+        'Toppings' : Topping.objects.all().order_by('name'),
+        'SubsExtra' : Product.objects.filter(catagory__name = "SubsExtra")
     }
     return render(request, 'orders/menu.html',context)
 

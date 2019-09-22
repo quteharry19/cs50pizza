@@ -5,7 +5,7 @@
 
 <section class="ftco-section">
 
-    <div class="container">
+    <!-- <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 heading-section ftco-animate text-center">
                 <h2 class="mb-4" id="hotpizza">Hot Pizza Meals</h2>
@@ -28,8 +28,6 @@
                             </a>
                             <div class="text p-4">
                                 <h4>{{ product.generic_name }}</h4>
-                                <!-- , far from the countries Vokalia and Consonantia  -->
-                                <!-- <p>Far far away, behind the word mountains</p> -->
                                 <h6>{{ product.name }}</h6>
                                 {% get_num_top product.name as numTop %}
                                     {% if numTop != 0 %}
@@ -66,7 +64,7 @@
                 {% endif %}
             {% endfor %}
         </div>
-    </div>
+    </div> -->
 
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3 mt-5 pt-5">
@@ -97,7 +95,10 @@
                         
                         <div class="pricing-entry d-flex ftco-animate">
                             
-                            <div class="img shop-img" data-prodid="{{ product.id }}"
+                            <div class="img shop-img" 
+                            data-prodid="{{ product.id }}"
+                            data-prodname="{{ product.name }}" 
+                            data-catname="{{ catagory.name }}"
                             style="background-image: url({{ STATIC_PREFIX }}orders/{{ product.image }});">
                             </div>
 
@@ -107,14 +108,12 @@
                                     <h3>
                                         <span>{{ product.name }}</span>
                                     </h3>
-                                    
+
                                     <span class="price">${{ product.price_small }}</span>
                                     <span class="price">${{ product.price_large }}</span>
                                 </div>
 
                                 <div class="d-block">
-                                    <!-- <p>A small river named Duden flows by their place and supplies</p> -->
-                                    
                                     {% if 'pizza' in catagory.name|lower %}
 
                                         {% get_num_top product.name as numTop %}
@@ -178,7 +177,7 @@
     </div>
 </section>
 
-<section class="ftco-menu">
+<!-- <section class="ftco-menu">
     <div class="container-fluid">
         <div class="row d-md-flex">
             <div class="col-lg-4 ftco-animate img f-menu-img mb-5 mb-md-0"
@@ -200,15 +199,6 @@
 
                             {% endif %}
                             {% endfor %}                            
-
-                            <!-- <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab"
-                                aria-controls="v-pills-2" aria-selected="false">Drinks</a>
-
-                            <a class="nav-link" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab"
-                                aria-controls="v-pills-3" aria-selected="false">Burgers</a>
-
-                            <a class="nav-link" id="v-pills-4-tab" data-toggle="pill" href="#v-pills-4" role="tab"
-                                aria-controls="v-pills-4" aria-selected="false">Pasta</a> -->
 
                             </div>
                     </div>
@@ -235,9 +225,6 @@
                                             <div class="text">
                                                 <h3>{{ product.generic_name }}</h3>
                                                 <p>{{ product.name }}</p>
-                                                <!-- <p>Far far away, behind the word mountains, far from the countries
-                                                    Vokalia and Consonantia.
-                                                </p> -->
 
                                                 <select name="size" class="size form-control form-control-sm">
                                                     <option value="small" data-price="{{ product.price_small }}" class="bg-secondary" >Small</option>
@@ -255,189 +242,15 @@
                                     {% endif %}
                                     {% endfor %}
 
-                                    <!-- <div class="col-md-4 text-center">
-                                        <div class="menu-wrap">
-                                            <a href="#" class="menu-img img mb-4"
-                                                style="background-image: url({% static 'orders/images/pizza-2.jpg' %});"></a>
-                                            <div class="text">
-                                                <h3><a href="#">Itallian Pizza</a></h3>
-                                                <p>Far far away, behind the word mountains, far from the countries
-                                                    Vokalia and Consonantia.</p>
-                                                <p class="price"><span>$2.90</span></p>
-                                                <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4 text-center">
-                                        <div class="menu-wrap">
-                                            <a href="#" class="menu-img img mb-4"
-                                                style="background-image: url({% static 'orders/images/pizza-3.jpg' %});"></a>
-                                            <div class="text">
-                                                <h3><a href="#">Itallian Pizza</a></h3>
-                                                <p>Far far away, behind the word mountains, far from the countries
-                                                    Vokalia and Consonantia.</p>
-                                                <p class="price"><span>$2.90</span></p>
-                                                <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
                                 </div>
                             </div>
                             {% endif %}
                             {% endfor %}
 
-                            <!-- <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
-                                <div class="row">
-
-                                    <div class="col-md-4 text-center">
-                                        <div class="menu-wrap">
-                                            <a href="#" class="menu-img img mb-4"
-                                                style="background-image: url({% static 'orders/images/drink-1.jpg' %});"></a>
-                                            <div class="text">
-                                                <h3><a href="#">Lemonade Juice</a></h3>
-                                                <p>Far far away, behind the word mountains, far from the countries
-                                                    Vokalia and Consonantia.</p>
-                                                <p class="price"><span>$2.90</span></p>
-                                                <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4 text-center">
-                                        <div class="menu-wrap">
-                                            <a href="#" class="menu-img img mb-4"
-                                                style="background-image: url({% static 'orders/images/drink-2.jpg' %});"></a>
-                                            <div class="text">
-                                                <h3><a href="#">Pineapple Juice</a></h3>
-                                                <p>Far far away, behind the word mountains, far from the countries
-                                                    Vokalia and Consonantia.</p>
-                                                <p class="price"><span>$2.90</span></p>
-                                                <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4 text-center">
-                                        <div class="menu-wrap">
-                                            <a href="#" class="menu-img img mb-4"
-                                                style="background-image: url({% static 'orders/images/drink-3.jpg' %});"></a>
-                                            <div class="text">
-                                                <h3><a href="#">Soda Drinks</a></h3>
-                                                <p>Far far away, behind the word mountains, far from the countries
-                                                    Vokalia and Consonantia.</p>
-                                                <p class="price"><span>$2.90</span></p>
-                                                <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
-                                <div class="row">
-                                    <div class="col-md-4 text-center">
-                                        <div class="menu-wrap">
-                                            <a href="#" class="menu-img img mb-4"
-                                                style="background-image: url({% static 'orders/images/burger-1.jpg' %});"></a>
-                                            <div class="text">
-                                                <h3><a href="#">Itallian Pizza</a></h3>
-                                                <p>Far far away, behind the word mountains, far from the countries
-                                                    Vokalia and Consonantia.</p>
-                                                <p class="price"><span>$2.90</span></p>
-                                                <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                        <div class="menu-wrap">
-                                            <a href="#" class="menu-img img mb-4"
-                                                style="background-image: url({% static 'orders/images/burger-2.jpg' %});"></a>
-                                            <div class="text">
-                                                <h3><a href="#">Itallian Pizza</a></h3>
-                                                <p>Far far away, behind the word mountains, far from the countries
-                                                    Vokalia and Consonantia.</p>
-                                                <p class="price"><span>$2.90</span></p>
-                                                <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                        <div class="menu-wrap">
-                                            <a href="#" class="menu-img img mb-4"
-                                                style="background-image: url({% static 'orders/images/burger-3.jpg' %});"></a>
-                                            <div class="text">
-                                                <h3><a href="#">Itallian Pizza</a></h3>
-                                                <p>Far far away, behind the word mountains, far from the countries
-                                                    Vokalia and Consonantia.</p>
-                                                <p class="price"><span>$2.90</span></p>
-                                                <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tab-pane fade" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-4-tab">
-                                <div class="row">
-                                    <div class="col-md-4 text-center">
-                                        <div class="menu-wrap">
-                                            <a href="#" class="menu-img img mb-4"
-                                                style="background-image: url({% static 'orders/images/pasta-1.jpg' %});"></a>
-                                            <div class="text">
-                                                <h3><a href="#">Itallian Pizza</a></h3>
-                                                <p>Far far away, behind the word mountains, far from the countries
-                                                    Vokalia and Consonantia.</p>
-                                                <p class="price"><span>$2.90</span></p>
-                                                <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                        <div class="menu-wrap">
-                                            <a href="#" class="menu-img img mb-4"
-                                                style="background-image: url({% static 'orders/images/pasta-2.jpg' %});"></a>
-                                            <div class="text">
-                                                <h3><a href="#">Itallian Pizza</a></h3>
-                                                <p>Far far away, behind the word mountains, far from the countries
-                                                    Vokalia and Consonantia.</p>
-                                                <p class="price"><span>$2.90</span></p>
-                                                <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                        <div class="menu-wrap">
-                                            <a href="#" class="menu-img img mb-4"
-                                                style="background-image: url({% static 'orders/images/pasta-3.jpg' %});"></a>
-                                            <div class="text">
-                                                <h3><a href="#">Itallian Pizza</a></h3>
-                                                <p>Far far away, behind the word mountains, far from the countries
-                                                    Vokalia and Consonantia.</p>
-                                                <p class="price"><span>$2.90</span></p>
-                                                <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</section> -->

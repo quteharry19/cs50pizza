@@ -184,7 +184,6 @@ AOS.init({
 					  }, 7000
 					);
 				});
-				
 			}
 
 		} , { offset: '95%' } );
@@ -248,7 +247,7 @@ AOS.init({
 		  }
 		});
 		$('body').on('activate.bs.scrollspy', function () {
-		  console.log('nice');
+		  //console.log('nice');
 		})
 	};
 	OnePageNav();

@@ -1,3 +1,17 @@
 /* .form-control {
     color: black;
 } */
+
+/* .cart-items {
+    max-height: 30vh;
+    overflow-y: scroll;
+} */
+
+.modal-dialog {
+    overflow-y: initial !important;
+}
+
+.cart-items{
+    height: 250px;
+    overflow-y: auto;
+}

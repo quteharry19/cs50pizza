@@ -9,6 +9,70 @@ $(document).mousemove(function(event) {
 });
 
 
+if (!localStorage.getItem('cartItems')){
+    var cartItems = []
+    localStorage.setItem('cartItems',JSON.stringify(cartItems));
+} else {
+    cartItems = JSON.parse(localStorage.getItem('cartItems'));
+}
+
+var total_price = 0
+
+addItemHandler = (item, index, arr) => {
+    if (item != null){
+    var cartLi = document.createElement('li')
+    cartLi.className = "list-group-item bg-dark"
+    var extprice = 0
+    let extras = []
+
+    if (item.extras != undefined){
+        item.extras.forEach(ext => {
+            let extkey = Object.keys(ext)[0]
+            extras.push(extkey.toString())
+            extprice += parseFloat(ext[extkey])
+        });
+    }
+    itemCost = item.rate + extprice
+    total_price += parseFloat(itemCost)
+    cartLi.innerHTML = `<span>${item.prodname}</span> <br />`
+    cartLi.innerHTML += `<span>${item.catname}</span> <span class="float-right"> $ ${itemCost} </span><br />`
+    cartLi.innerHTML += ` <span>Size : ${item.size}</span> <a href="#" onClick={delItemHandler(this,${index},${itemCost})} class="delitem float-right"><i class="icon-delete"></i></a> <br />`
+    cartLi.innerHTML += ` <span>Topping : ${item.topping}</span> <br />`
+    cartLi.innerHTML += ` <span>Extras : ${extras.toString()}</span> <br />`
+    //cartLi.innerHTML += ` <span>Item Cost : $ ${itemCost}`
+    document.querySelector('#cartUL').appendChild(cartLi);
+    document.querySelector('#total_price').innerHTML = '$ ' + total_price
+    }
+}
+
+document.querySelectorAll('.delitem').forEach(delitem => {
+    delitem.onclick = delItemHandler(delitem)
+})
+
+delItemHandler = (delitem, index, itemCost) => {
+    var delParent = delitem.parentElement
+    delParent.remove();
+    //cartItems.splice(index,1)
+    delete cartItems[index]
+    localStorage.setItem('cartItems',JSON.stringify(cartItems));
+    total_price -= parseFloat(itemCost)
+    document.querySelector('#total_price').innerHTML = '$ ' + total_price
+
+    return false;
+}
+
+checkoutButtonHandler = (cartItems) => {
+    if (cartItems.length > 0){
+        document.querySelector('#checkout').disabled = false
+        cartItems.forEach(addItemHandler);
+        
+    }else{
+        document.querySelector('#checkout').disabled = true
+    }
+}
+
+checkoutButtonHandler(cartItems);
+
 document.querySelectorAll('.size').forEach(elem =>{
     elem.addEventListener('change',(event)=>{
         var price = event.target.options[event.target.selectedIndex].dataset.price
@@ -82,15 +146,10 @@ $('.add-to-cart').on('click', function (e) {
         }, function () {
             $(this).detach()
 
-            if (!localStorage.getItem('cartItems')){
-                var cartItems = []
-                localStorage.setItem('cartItems',JSON.stringify(cartItems));
-            } else {
-                var cartItems = JSON.parse(localStorage.getItem('cartItems'));
-            }
-
             var item = {
                 'prodid' : imgclone.data('prodid'),
+                'prodname' : imgclone.data('prodname'),
+                'catname' : imgclone.data('catname'),
                 'size' : $(itemSize).val(),
                 'quantity' : 1,
                 'topping' : selectedToppings,
@@ -99,12 +158,14 @@ $('.add-to-cart').on('click', function (e) {
                 // 'img' : imgtodrag
             }
 
+            addItemHandler(item, cartItems.length, cartItems)
+
             cartItems.push(item)
-
-            console.log(cartItems);
-
+            
             localStorage.setItem('cartItems',JSON.stringify(cartItems));
+            
 
+            document.querySelector('#checkout').disabled = false
         });
     }
 });
