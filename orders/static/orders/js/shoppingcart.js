@@ -57,17 +57,17 @@ delItemHandler = (delitem, index, itemCost) => {
     localStorage.setItem('cartItems',JSON.stringify(cartItems));
     total_price -= parseFloat(itemCost)
     document.querySelector('#total_price').innerHTML = '$ ' + total_price
-
     return false;
 }
 
 checkoutButtonHandler = (cartItems) => {
     if (cartItems.length > 0){
-        document.querySelector('#checkout').disabled = false
+        document.getElementById('checkout').disabled = false
         cartItems.forEach(addItemHandler);
         
     }else{
-        document.querySelector('#checkout').disabled = true
+        document.getElementById('checkout').disabled = true
+        // document.querySelector('#checkout').disabled = true
     }
 }
 
@@ -116,56 +116,65 @@ $('.add-to-cart').on('click', function (e) {
         selectedExtras.push({[extra] : price})
     });
 
-
     if (imgtodrag) {
         var imgclone = imgtodrag.clone();  
 
-        imgclone.css({
-            'opacity': '0.8',
-            'position': 'absolute',
-            'height': '150px',
-            'width': '150px',
-            'top' : currentMousePos.y + 'px',
-            'left': currentMousePos.x + 'px',
-            'border-radius':'20px',
-            'z-index': '100'
-        })
-
-        imgclone.appendTo($('body'))
-
-        imgclone.animate({
-            'top': cart.offset().top,
-            'left': cart.offset().left,
-            'width': 40,
-            'height': 40
-        }, 700, 'linear');
-        //easeInOutExpo
-        imgclone.animate({
-            'width': 0,
-                'height': 0
-        }, function () {
-            $(this).detach()
-
-            var item = {
-                'prodid' : imgclone.data('prodid'),
-                'prodname' : imgclone.data('prodname'),
-                'catname' : imgclone.data('catname'),
-                'size' : $(itemSize).val(),
-                'quantity' : 1,
-                'topping' : selectedToppings,
-                'extras' : selectedExtras,
-                'rate' : parseFloat(itemPrice) ,
-                // 'img' : imgtodrag
-            }
-
-            addItemHandler(item, cartItems.length, cartItems)
-
-            cartItems.push(item)
-            
-            localStorage.setItem('cartItems',JSON.stringify(cartItems));
-            
-
-            document.querySelector('#checkout').disabled = false
-        });
+    var item = {
+        'prodid' : imgclone.data('prodid'),
+        'prodname' : imgclone.data('prodname'),
+        'catname' : imgclone.data('catname'),
+        'size' : $(itemSize).val(),
+        'quantity' : 1,
+        'topping' : selectedToppings,
+        'extras' : selectedExtras,
+        'rate' : parseFloat(itemPrice) ,
+        'img' : imgtodrag
     }
+
+    if (!isNaN(item.prodname[0])) {
+        const toppingAllowed = parseInt(item.prodname[0])
+        if (toppingAllowed < optionTopping.length) {
+            alert('more toppings selected')
+            throw new Error('more toppings selected')
+        } else if (toppingAllowed > optionTopping.length) {
+            alert('Please Select more toppings')
+            throw new Error('Please Select more toppings')
+        }
+    }
+    imgclone.css({
+        'opacity': '0.8',
+        'position': 'absolute',
+        'height': '150px',
+        'width': '150px',
+        'top' : currentMousePos.y + 'px',
+        'left': currentMousePos.x + 'px',
+        'border-radius':'20px',
+        'z-index': '100'
+    })
+
+    imgclone.appendTo($('body'))
+
+    imgclone.animate({
+        'top': cart.offset().top,
+        'left': cart.offset().left,
+        'width': 40,
+        'height': 40
+    }, 700, 'linear');
+    //easeInOutExpo
+
+    imgclone.animate({
+        'width': 0,
+            'height': 0
+    }, function () {
+        $(this).detach()
+
+        addItemHandler(item, cartItems.length, cartItems)
+
+        cartItems.push(item)
+        
+        localStorage.setItem('cartItems',JSON.stringify(cartItems));
+        
+        document.getElementById('checkout').disabled = false
+    });
+}
 });
