@@ -202,31 +202,34 @@
                                 <div class="input-group-append"></div>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="text-primary input-group-text">
-                                        <i class="icon-user-o"></i>
-                                    </span>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="text-primary input-group-text">
+                                                <i class="icon-user-o"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control ml-1" type="text" placeholder="First Name" name="first_name" />
+                                        <div class="input-group-append"></div>
+                                    </div>
                                 </div>
-                                <input class="form-control ml-1" type="text" placeholder="First Name" name="first_name" />
-                                <div class="input-group-append"></div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="text-primary input-group-text">
+                                                <i class="icon-user-o"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control ml-1" type="text" placeholder="Last Name" name="last_name" />
+                                        <div class="input-group-append"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="text-primary input-group-text">
-                                        <i class="icon-user-o"></i>
-                                    </span>
-                                </div>
-                                <input class="form-control ml-1" type="text" placeholder="Last Name" name="last_name" />
-                                <div class="input-group-append"></div>
-                            </div>
-                        </div>
-
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -277,7 +280,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="mt-4" method="POST" action="{% url 'signup' %}">
+                    <form class="mt-4" method="POST" id="checkoutForm" action="{% url 'checkout' %}">
                         {% csrf_token %}
                         <div class="cart-items card bg-dark">
                             <ul id="cartUL" class="list-group list-group-flush">
@@ -302,9 +305,24 @@
                         </div>
 
                         <div class="form-group">
+                            {% if user.is_authenticated %}
+                            <input type="hidden" name="email" value="{{ user.email }}">
+                            <input type="hidden" name="first_name" value="{{ user.first_name }}">
+    
                             <button id="checkout" class="btn btn-primary btn-lg text-white" style="width: 100%;" type="submit">
                                 Checkout Now
                             </button>
+
+                            {% else %}
+                                <a id="checkout" class="btn btn-primary btn-lg text-white" 
+                                    href="#"
+                                    style="width: 100%;"
+                                    data-dismiss="modal"
+                                    data-toggle="modal"
+                                    data-target="#signin">
+                                    Login Now to Checkout
+                                </a>
+                            {% endif %}
                         </div>
                     </form>
                 </div>

@@ -10,7 +10,7 @@ $(document).mousemove(function(event) {
 
 
 if (!localStorage.getItem('cartItems')){
-    var cartItems = []
+    cartItems = []
     localStorage.setItem('cartItems',JSON.stringify(cartItems));
 } else {
     cartItems = JSON.parse(localStorage.getItem('cartItems'));
@@ -41,13 +41,22 @@ addItemHandler = (item, index, arr) => {
     cartLi.innerHTML += ` <span>Extras : ${extras.toString()}</span> <br />`
     //cartLi.innerHTML += ` <span>Item Cost : $ ${itemCost}`
     document.querySelector('#cartUL').appendChild(cartLi);
-    document.querySelector('#total_price').innerHTML = '$ ' + total_price
+    document.querySelector('#total_price').innerHTML = '$ ' + total_price.toFixed(2)
     }
 }
 
 document.querySelectorAll('.delitem').forEach(delitem => {
     delitem.onclick = delItemHandler(delitem)
 })
+
+document.querySelector('#checkoutForm').onsubmit = (e) => {
+    //e.preventDefault()
+    cartData = document.createElement('input')
+    cartData.setAttribute('type',"hidden")
+    cartData.setAttribute('name',"cartitems")
+    cartData.setAttribute('value',JSON.stringify(cartItems))
+    document.querySelector('#cartUL').appendChild(cartData)
+}
 
 delItemHandler = (delitem, index, itemCost) => {
     var delParent = delitem.parentElement
@@ -56,7 +65,7 @@ delItemHandler = (delitem, index, itemCost) => {
     delete cartItems[index]
     localStorage.setItem('cartItems',JSON.stringify(cartItems));
     total_price -= parseFloat(itemCost)
-    document.querySelector('#total_price').innerHTML = '$ ' + total_price
+    document.querySelector('#total_price').innerHTML = '$ ' + total_price.toFixed(2)
     return false;
 }
 

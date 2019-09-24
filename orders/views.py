@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, reverse, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Product_catagory,Product,Order,Order_detail,Topping
 from .sendEmail import send_HTML_Email
+import json
 
 # Create your views here.
 def index(request):
@@ -50,6 +51,24 @@ def menu(request):
         'SubsExtra' : Product.objects.filter(catagory__name = "SubsExtra")
     }
     return render(request, 'orders/menu.html',context)
+
+def checkout(request):
+    email = request.POST['email']
+    first_name = request.POST['first_name']
+    cartItems = json.loads(request.POST['cartitems'])
+    for item in cartItems:
+        print(item['prodname'], item['topping'])
+    print(len(cartItems))
+
+    context = {
+        'first_name' : first_name,
+        'cartItems' : cartItems
+    }
+
+    result = send_HTML_Email([email],"Pinochio's Order Placed","orders/checkoutMail.html",context)
+
+    messages.success(request, f'Thanks {first_name} your order is placed and confirmation mail sent.')
+    return HttpResponseRedirect(reverse('orders_index'))
 
 def services(request):
     return render(request, 'orders/services.html')
