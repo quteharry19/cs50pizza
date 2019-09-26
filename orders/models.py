@@ -40,7 +40,7 @@ class Order(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name="user_orders")
 
     def __str__(self):
-        return f"{self.user} {self.status} {self.amount}"
+        return f"id: {self.id} {self.user} {self.status} {self.amount}"
 
 class Order_detail(models.Model):
     SIZES = [
@@ -55,7 +55,7 @@ class Order_detail(models.Model):
     topping = models.ManyToManyField(Topping,related_name="order_topping",blank=True)
 
     def __str__(self):
-        return f"  {self.quantity} - {self.topping.in_bulk()}"
+        return f"id: {self.id} - {self.quantity} - {self.topping.in_bulk()}"
 
 # class OrderManager(models.Manager):
 #     def topping_check(self,topping_allowed,topping_selected):

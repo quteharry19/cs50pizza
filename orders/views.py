@@ -15,11 +15,15 @@ def index(request):
     else:
         print('not authenticated')
     
+    products = list(Product.objects.all().order_by('catagory__name'))
+    catagorys = list(Product_catagory.objects.all())
+    toppings = list(Topping.objects.all().order_by('name'))
+    subsextra = list(Product.objects.filter(catagory__name = "SubsExtra"))
     context = {
-        'Products' : Product.objects.all().order_by('catagory__name'),
-        'Catagorys': Product_catagory.objects.all(),
-        'Toppings' : Topping.objects.all().order_by('name'),
-        'SubsExtra' : Product.objects.filter(catagory__name = "SubsExtra")
+        'Products' : products,
+        'Catagorys': catagorys,
+        'Toppings' : toppings,
+        'SubsExtra' : subsextra
     }
     print('query done')
     return render(request, 'orders/index.html',context)
@@ -44,30 +48,83 @@ def blog(request):
     return render(request, 'orders/blog.html')
 
 def menu(request):
+    products = list(Product.objects.all().order_by('catagory__name'))
+    catagorys = list(Product_catagory.objects.all())
+    toppings = list(Topping.objects.all().order_by('name'))
+    subsextra = list(Product.objects.filter(catagory__name = "SubsExtra"))
     context = {
-        'Products' : Product.objects.all().order_by('catagory__name'),
-        'Catagorys': Product_catagory.objects.all(),
-        'Toppings' : Topping.objects.all().order_by('name'),
-        'SubsExtra' : Product.objects.filter(catagory__name = "SubsExtra")
+        'Products' : products,
+        'Catagorys': catagorys,
+        'Toppings' : toppings,
+        'SubsExtra' : subsextra
     }
     return render(request, 'orders/menu.html',context)
 
 def checkout(request):
-    email = request.POST['email']
-    first_name = request.POST['first_name']
-    cartItems = json.loads(request.POST['cartitems'])
-    for item in cartItems:
-        print(item['prodname'], item['topping'])
-    print(len(cartItems))
+    # only if request method is post prevent url bar hit enter again n again
+    if request.method == 'POST' :
+        username = request.POST['username']
+        email = request.POST['email']
+        first_name = request.POST['first_name']
+        cartItems = json.loads(request.POST['cartitems'])
 
-    context = {
-        'first_name' : first_name,
-        'cartItems' : cartItems
-    }
+        # assign required variable to 0
+        total_amount = 0
+        extcost = 0
 
-    result = send_HTML_Email([email],"Pinochio's Order Placed","orders/checkoutMail.html",context)
+        # get user instance 
+        user = User.objects.get(username=username)
+        
+        # create & save Order instance
+        order = Order(status="P",amount=0,user=user)
+        order.save()
+        
+        # loop for items in the shopping cart with not none
+        for item in cartItems:
+            if item is not None :
+                for extras in item['extras']:
+                    extkey = list(extras.keys())
+                    extcost += float(extras[extkey[0]])
+                prodid = item['prodid']
+                size = item['size'][0].upper()
+                quantity = item['quantity']
+                topping_list = item['topping']
+                product = Product.objects.get(pk=prodid)
 
-    messages.success(request, f'Thanks {first_name} your order is placed and confirmation mail sent.')
+                # do not rely on client side rate get rates from server / model
+                rate = product.price_small if size=="S" else product.price_large
+
+                # calculate total amount with extras cost
+                total_amount += (float(rate) + extcost) * quantity
+
+                # create order_detail instance
+                order_detail = Order_detail(order_detail=order,product_detail=product,size=size,quantity=quantity,rate=rate)
+                order_detail.save()
+
+                # add toppings to order_detail instance
+                for topping in topping_list:
+                    topping_to_add = Topping.objects.get(name=topping)
+                    order_detail.topping.add(topping_to_add)
+                
+                item['rate'] = float(rate)
+                item['extcost'] = float(extcost)
+                print('prodid',prodid,'product',product,'size',size,'rate',rate,'qty',quantity,'topping',topping_list)
+
+        # update total_amount to Order instance
+        order.amount = round(total_amount,2)
+
+        # context for email to client
+        # print(cartItems)
+        context = {
+            'first_name' : first_name,
+            'cartItems' : cartItems
+        }
+        # print('order',order)
+        # print('order_detail_Order ID:',order_detail.order_detail)
+        # print('order_detail',order_detail)
+        #result = send_HTML_Email([email],"Pinochio's Order Placed","orders/checkoutMail.html",context)
+
+        messages.success(request, f'Thanks {first_name} your order is placed and confirmation mail sent.')
     return HttpResponseRedirect(reverse('orders_index'))
 
 def services(request):

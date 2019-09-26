@@ -271,7 +271,7 @@
     </div>
 
     <div class="modal fade" role="dialog" tabindex="-1" id="cart">
-        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content" style="background-image: url({% static 'orders/images/bg_4.jpg' %});">
                 <div class="modal-header">
                     <h4 class="modal-title">Your Cart</h4>
@@ -306,6 +306,7 @@
 
                         <div class="form-group">
                             {% if user.is_authenticated %}
+                            <input type="hidden" name="username" value="{{ user.username }}">
                             <input type="hidden" name="email" value="{{ user.email }}">
                             <input type="hidden" name="first_name" value="{{ user.first_name }}">
     

@@ -34,7 +34,7 @@ addItemHandler = (item, index, arr) => {
     }
     itemCost = item.rate + extprice
     total_price += parseFloat(itemCost)
-    cartLi.innerHTML = `<span>${item.prodname}</span> <br />`
+    cartLi.innerHTML = `<span>${item.prodname}</span> `
     cartLi.innerHTML += `<span>${item.catname}</span> <span class="float-right"> $ ${itemCost} </span><br />`
     cartLi.innerHTML += ` <span>Size : ${item.size}</span> <a href="#" onClick={delItemHandler(this,${index},${itemCost})} class="delitem float-right"><i class="icon-delete"></i></a> <br />`
     cartLi.innerHTML += ` <span>Topping : ${item.topping}</span> <br />`
@@ -56,6 +56,7 @@ document.querySelector('#checkoutForm').onsubmit = (e) => {
     cartData.setAttribute('name',"cartitems")
     cartData.setAttribute('value',JSON.stringify(cartItems))
     document.querySelector('#cartUL').appendChild(cartData)
+    localStorage.setItem('cartItems',[])
 }
 
 delItemHandler = (delitem, index, itemCost) => {
@@ -136,8 +137,8 @@ $('.add-to-cart').on('click', function (e) {
         'quantity' : 1,
         'topping' : selectedToppings,
         'extras' : selectedExtras,
-        'rate' : parseFloat(itemPrice) ,
-        'img' : imgtodrag
+        'rate' : parseFloat(itemPrice)
+        //'img' : imgtodrag
     }
 
     if (!isNaN(item.prodname[0])) {
