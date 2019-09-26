@@ -11,7 +11,31 @@
         Your Order is Placed Successfully as details below
         <br>
     </h4>
+    <div>
+        {% for item in cartItems %}
+            <span> {{ item.prodname }}</span>
+            <span>{{ item.catname }}</span>
+            <div>
+                Toppings:
+                {% for top in item.topping %}
+                    {{ top }}
+                {% endfor %}
+            </div>
+            <div>
+                Extras:
+                {% for ext in item.extras %}
+                    {{ ext }}
+                {% endfor %}
+            </div>
+            <div>
+                Item Cost is {{ item.itemcost }}
+            </div>
+        {% endfor %}
+        <div>
+            Total Bill Amount is {{ total_amount }}
+        </div>
 
+    </div>
 </div>
 <br><br>
 <h1>

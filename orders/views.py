@@ -108,21 +108,22 @@ def checkout(request):
                 
                 item['rate'] = float(rate)
                 item['extcost'] = float(extcost)
+                item['itemcost'] = float((item['rate'] + item['extcost']) * item['quantity'])
                 print('prodid',prodid,'product',product,'size',size,'rate',rate,'qty',quantity,'topping',topping_list)
 
         # update total_amount to Order instance
         order.amount = round(total_amount,2)
-
         # context for email to client
         # print(cartItems)
         context = {
             'first_name' : first_name,
-            'cartItems' : cartItems
+            'cartItems' : cartItems,
+            'total_amount' : total_amount
         }
         # print('order',order)
         # print('order_detail_Order ID:',order_detail.order_detail)
         # print('order_detail',order_detail)
-        #result = send_HTML_Email([email],"Pinochio's Order Placed","orders/checkoutMail.html",context)
+        result = send_HTML_Email([email],"Pinochio's Order Placed","orders/checkoutMail.html",context)
 
         messages.success(request, f'Thanks {first_name} your order is placed and confirmation mail sent.')
     return HttpResponseRedirect(reverse('orders_index'))
