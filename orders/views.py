@@ -82,9 +82,12 @@ def checkout(request):
         # loop for items in the shopping cart with not none
         for item in cartItems:
             if item is not None :
+                extkeys = []
+                extcost = 0
                 for extras in item['extras']:
                     extkey = list(extras.keys())
                     extcost += float(extras[extkey[0]])
+                    extkeys.append(extkey)
                 prodid = item['prodid']
                 size = item['size'][0].upper()
                 quantity = item['quantity']
@@ -108,25 +111,33 @@ def checkout(request):
                 
                 item['rate'] = float(rate)
                 item['extcost'] = float(extcost)
+                item['extkeys'] = extkeys
                 item['itemcost'] = float((item['rate'] + item['extcost']) * item['quantity'])
                 print('prodid',prodid,'product',product,'size',size,'rate',rate,'qty',quantity,'topping',topping_list)
 
         # update total_amount to Order instance
         order.amount = round(total_amount,2)
+
         # context for email to client
-        # print(cartItems)
         context = {
             'first_name' : first_name,
+            'order_id' : order.id,
+            'order_status' : order.status,
             'cartItems' : cartItems,
-            'total_amount' : total_amount
+            'absolute_uri' : request.build_absolute_uri(f'/checkorder/{order.id}'),
+            'total_amount' : round(total_amount,2)
         }
-        # print('order',order)
+        print('order id',order.id)
+        print('order status', order.status)
         # print('order_detail_Order ID:',order_detail.order_detail)
         # print('order_detail',order_detail)
         result = send_HTML_Email([email],"Pinochio's Order Placed","orders/checkoutMail.html",context)
 
         messages.success(request, f'Thanks {first_name} your order is placed and confirmation mail sent.')
     return HttpResponseRedirect(reverse('orders_index'))
+
+def checkorderid(request,order_id):
+    return HttpResponse(f"<h1>Check Order Status with ID {order_id} </h1>")
 
 def services(request):
     return render(request, 'orders/services.html')

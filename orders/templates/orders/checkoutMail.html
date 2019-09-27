@@ -2,45 +2,65 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-<link href="{% static 'orders/css/bootstrap.min.css' %}" rel="stylesheet">
 <h3>Greetings !!,</h3>
-<div class="ml-5">
+<div style="margin-left: 2vw;">
     <h4>
         Welcome to Pinochio's Pizza & subs {{ first_name }},
         <br>
         Your Order is Placed Successfully as details below
         <br>
+        <a href="{{ absolute_uri }}">Click here to check order status</a>
     </h4>
     <div>
         {% for item in cartItems %}
-            <span> {{ item.prodname }}</span>
-            <span>{{ item.catname }}</span>
+        {% if item is not null %}
+        <div style="border: 1px solid;padding: 25px;box-shadow: 5px 20px grey;">
             <div>
-                Toppings:
-                {% for top in item.topping %}
-                    {{ top }}
-                {% endfor %}
+                <span> {{ item.prodname }}</span>
+                <span>{{ item.catname }}</span>
+                <span>{{ item.size }}</span>
+                <div>
+                    {% if item.topping %}
+                    Toppings:
+
+                    {% for top in item.topping %}
+                    {{ top }},
+                    {% endfor %}
+
+                    {% endif %}
+
+                </div>
+                <div>
+                    {% if item.extkeys %}
+                    Extras:
+
+                    {% for extkey in item.extkeys %}
+
+                    {% for ext in extkey %}
+                    {{ ext }},
+                    {% endfor %}
+
+                    {% endfor %}
+
+                    {% endif %}
+
+                </div>
+                <span style="float: right;">
+                    Item Cost: $ {{ item.itemcost }}
+                </span>
+
             </div>
-            <div>
-                Extras:
-                {% for ext in item.extras %}
-                    {{ ext }}
-                {% endfor %}
-            </div>
-            <div>
-                Item Cost is {{ item.itemcost }}
-            </div>
-        {% endfor %}
-        <div>
-            Total Bill Amount is {{ total_amount }}
         </div>
+        {% endif %}
+        {% endfor %}
+        <h3 style="float: right;">
+            Total Invoice Amount $ {{ total_amount }}
+        </h3>
 
     </div>
 </div>
 <br><br>
-<h1>
-    <strong>
-        Thanks & Regards,<br>
-        Harish Ahuja(Developer)
-    </strong>
-</h1>
+<h2>
+    Thanks & Regards,<br>
+    Harish Ahuja(Full Stack Developer)
+</h2>
