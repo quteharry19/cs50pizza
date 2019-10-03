@@ -1,0 +1,47 @@
+{% extends 'orders/base.html' %}
+
+
+{% block title %}
+Your Orders
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% get_static_prefix as STATIC_PREFIX %}
+<div class="container">
+    <div class="row justify-content-center mb-5 pb-3 mt-5 pt-5">
+        <div class="col-md-7 heading-section text-center ftco-animate">
+            <h2 class="mb-4">
+                Your orders
+            </h2>
+            <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex flex-column">
+                {% for order in orders %}
+                <h4>
+                    <a href="{% url 'checkorderid' order.id %}">
+                        <span>Order ID : {{ order.id }}</span>
+                        <span>Order Status {{ order.get_status_display }}</span>
+                        <span>Bill Amount $ {{ order.amount }}</span>
+                    </a>
+                </h4>
+                {% empty %}
+                <h2>
+                    No Orders found
+                    <a href="{% url 'menu' %}" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a>
+                </h2>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+{% endblock %}

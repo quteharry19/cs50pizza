@@ -56,7 +56,7 @@ document.querySelector('#checkoutForm').onsubmit = (e) => {
     cartData.setAttribute('name',"cartitems")
     cartData.setAttribute('value',JSON.stringify(cartItems))
     document.querySelector('#cartUL').appendChild(cartData)
-    localStorage.setItem('cartItems',[])
+    //localStorage.setItem('cartItems',[])
 }
 
 delItemHandler = (delitem, index, itemCost) => {

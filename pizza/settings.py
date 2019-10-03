@@ -25,6 +25,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG_SET')
+#DEBUG = True
+#DEBUG = False
 
 ALLOWED_HOSTS = ['cs50pizza.azurewebsites.net','localhost','cs50pizza.herokuapp.com','reckitt']
 

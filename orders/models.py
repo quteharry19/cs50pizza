@@ -36,8 +36,9 @@ class Order(models.Model):
         ("D","Delivered")
     ]
     status = models.CharField(max_length=1,choices=STATUS,default="P")
-    amount = models.IntegerField()
+    amount = models.FloatField()
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name="user_orders")
+    #date = models.DateTimeField()
 
     def __str__(self):
         return f"id: {self.id} {self.user} {self.status} {self.amount}"
@@ -54,6 +55,10 @@ class Order_detail(models.Model):
     rate = models.FloatField(default=0)
     topping = models.ManyToManyField(Topping,related_name="order_topping",blank=True)
 
+    def topping_list(self):
+        top_list = [top.name for top in self.topping.all() ]
+        return top_list
+        
     def __str__(self):
         return f"id: {self.id} - {self.quantity} - {self.topping.in_bulk()}"
 

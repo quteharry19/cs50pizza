@@ -12,7 +12,7 @@ class Order_admin(admin.ModelAdmin):
     list_display = ("user","status","amount")
 
 class Order_detail_admin(admin.ModelAdmin):
-    list_display = ("order_detail","product_detail","quantity")
+    list_display = ("order_detail","product_detail","quantity","size")
     filter_horizontal = ("topping",)
 
 admin.site.register(Product_catagory)

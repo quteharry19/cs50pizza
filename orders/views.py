@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
 from django.shortcuts import render, reverse, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -15,18 +15,25 @@ def index(request):
     else:
         print('not authenticated')
     
-    products = list(Product.objects.all().order_by('catagory__name'))
+    context = get_menu_context()
+
+    return render(request, 'orders/index.html',context)
+
+def get_menu_context():
+    products = list(Product.objects.all().values().order_by('catagory__name'))
     catagorys = list(Product_catagory.objects.all())
-    toppings = list(Topping.objects.all().order_by('name'))
-    subsextra = list(Product.objects.filter(catagory__name = "SubsExtra"))
+    toppings = list(Topping.objects.all().values('name').order_by('name'))
+    subsextra = list(Product.objects.filter(catagory__name = "SubsExtra").values())
+    toppings = [top['name'] for top in toppings ]
     context = {
         'Products' : products,
         'Catagorys': catagorys,
         'Toppings' : toppings,
         'SubsExtra' : subsextra
     }
-    print('query done')
-    return render(request, 'orders/index.html',context)
+    print('queryset complete')
+
+    return context
 
 def login_view(request):
     if request.method == "POST":
@@ -48,16 +55,8 @@ def blog(request):
     return render(request, 'orders/blog.html')
 
 def menu(request):
-    products = list(Product.objects.all().order_by('catagory__name'))
-    catagorys = list(Product_catagory.objects.all())
-    toppings = list(Topping.objects.all().order_by('name'))
-    subsextra = list(Product.objects.filter(catagory__name = "SubsExtra"))
-    context = {
-        'Products' : products,
-        'Catagorys': catagorys,
-        'Toppings' : toppings,
-        'SubsExtra' : subsextra
-    }
+    context = get_menu_context()
+
     return render(request, 'orders/menu.html',context)
 
 def checkout(request):
@@ -113,11 +112,17 @@ def checkout(request):
                 item['extcost'] = float(extcost)
                 item['extkeys'] = extkeys
                 item['itemcost'] = float((item['rate'] + item['extcost']) * item['quantity'])
-                print('prodid',prodid,'product',product,'size',size,'rate',rate,'qty',quantity,'topping',topping_list)
+
+                for ext in extkeys:
+                    extprod = Product.objects.filter(name=ext[0]).first()
+                    rate = extprod.price_small
+                    order_detail = Order_detail(order_detail=order,product_detail=extprod,size="S",quantity=1,rate=rate)
+                    order_detail.save()
+
 
         # update total_amount to Order instance
         order.amount = round(total_amount,2)
-
+        order.save()
         # context for email to client
         context = {
             'first_name' : first_name,
@@ -127,17 +132,45 @@ def checkout(request):
             'absolute_uri' : request.build_absolute_uri(f'/checkorder/{order.id}'),
             'total_amount' : round(total_amount,2)
         }
-        print('order id',order.id)
-        print('order status', order.status)
-        # print('order_detail_Order ID:',order_detail.order_detail)
-        # print('order_detail',order_detail)
         result = send_HTML_Email([email],"Pinochio's Order Placed","orders/checkoutMail.html",context)
 
         messages.success(request, f'Thanks {first_name} your order is placed and confirmation mail sent.')
     return HttpResponseRedirect(reverse('orders_index'))
 
 def checkorderid(request,order_id):
-    return HttpResponse(f"<h1>Check Order Status with ID {order_id} </h1>")
+    try:
+        order_detail = Order_detail.objects.filter(order_detail__id=order_id).prefetch_related('topping')
+        order = Order.objects.get(pk=order_id)
+    except Order.DoesNotExist:
+        raise Http404("Order Does Not Exists")
+    
+    status_list = [ list1[1] for list1 in order.STATUS ] 
+    context = {
+        'order_id' : order_id,
+        'order_status' : order.get_status_display(),
+        'order_amount' : float(order.amount),
+        'status_options' : status_list,
+        'OrderItems' : order_detail
+    }
+    return render(request, 'orders/checkorder.html',context)
+
+def checkorder(request,username):
+    user = User.objects.get(username=username)
+    orders = Order.objects.filter(user=user)
+
+    context = {
+        'user' : user,
+        'orders' : orders
+    }
+    for order in orders:
+        print(order.id)
+    return render(request, 'orders/yourorders.html',context)
+def updateOrderStatus(request,order_id):
+    order = Order.objects.get(pk=order_id)
+    order_status = request.POST['order_status']
+    order.status = order_status[0]
+    order.save()
+    return HttpResponseRedirect(reverse('checkorderid', args=(order_id,)))
 
 def services(request):
     return render(request, 'orders/services.html')

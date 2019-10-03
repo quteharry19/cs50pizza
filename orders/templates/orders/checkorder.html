@@ -1,0 +1,88 @@
+{% extends 'orders/base.html' %}
+
+
+{% block title %}
+Order Status
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% get_static_prefix as STATIC_PREFIX %}
+
+<div class="container">
+    <div class="row justify-content-center mb-5 pb-3 mt-5 pt-5">
+        <div class="col-md-7 heading-section text-center ftco-animate">
+            <h2 class="mb-4">
+                Your order
+            </h2>
+            <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form method="POST" action="{% url 'updateOrderStatus' order_id %}">
+                {% csrf_token %}
+
+                <div class="d-flex flex-row">
+
+                    <h2 class="flex-grow-1">Order ID :<span> {{ order_id }}</span></h2>
+                    <div class="float-right">
+                        <span>Order Status : </span>
+
+                        {% if user.is_superuser %}
+                        <select name="order_status">
+                            {% for opt in status_options %}
+                            {% if opt == order_status %}
+
+                            <option selected value="{{ opt|make_list|first }}">{{ opt }}</option>
+
+                            {% else %}
+
+                            <option value="{{ opt|make_list|first }}">{{ opt }}</option>
+
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-primary">Update Now</button>
+                        {% else %}
+                        <span class="p-2 ">{{ order_status }}</span>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                {% for product in OrderItems %}
+                <div class="pricing-entry d-flex ftco-animate">
+
+                    <div class="img shop-img" data-prodid="" data-prodname="" data-catname=""
+                        style="background-image: url({{ STATIC_PREFIX }}orders/{{ product.product_detail.image }});">
+                    </div>
+                    <div class="desc pl-3">
+
+                        <div class="d-flex text align-items-center">
+                            <h3>
+                                <span>{{ product.product_detail.name }}</span>
+                                <span>{{ product.product_detail.catagory }}</span>
+                                <span>{{ product.get_size_display }}</span>
+                                {% if product.topping_list|length > 0 %}
+                                <span>Toppings: </span>
+                                {% for top in product.topping_list  %}
+                                <span>{{ top }},</span>
+                                {% endfor %}
+                                {% endif %}
+                            </h3>
+                            <h5>$ {{ product.rate }} </h5>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="float-right">
+                    <h3>Total $ {{ order_amount }} </h3>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

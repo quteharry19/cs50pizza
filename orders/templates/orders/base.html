@@ -57,11 +57,11 @@
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            welcome {{ user.first_name }}
+                            {{ user.first_name }}
                         </a>
                         <div class="dropdown-menu mt-0" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'password_reset' %}">Reset Password</a>
-                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="{% url 'checkorder' user.username %}">Your Orders</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'logout_view' %}">Logout</a>
                         </div>
