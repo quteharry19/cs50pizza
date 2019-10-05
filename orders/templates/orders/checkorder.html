@@ -63,15 +63,17 @@ Order Status
 
                         <div class="d-flex text align-items-center">
                             <h3>
-                                <span>{{ product.product_detail.name }}</span>
                                 <span>{{ product.product_detail.catagory }}</span>
+                                <span>{{ product.product_detail.name }}</span>
                                 <span>{{ product.get_size_display }}</span>
-                                {% if product.topping_list|length > 0 %}
-                                <span>Toppings: </span>
-                                {% for top in product.topping_list  %}
-                                <span>{{ top }},</span>
-                                {% endfor %}
-                                {% endif %}
+                                <small>
+                                    {% if product.topping_list|length > 0 %}
+                                    <span>Toppings: </span>
+                                    {% for top in product.topping_list  %}
+                                    <span>{{ top }},</span>
+                                    {% endfor %}
+                                    {% endif %}
+                                </small>
                             </h3>
                             <h5>$ {{ product.rate }} </h5>
                         </div>

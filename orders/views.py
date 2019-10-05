@@ -21,7 +21,7 @@ def index(request):
 
 def get_menu_context():
     products = list(Product.objects.all().values().order_by('catagory__name'))
-    catagorys = list(Product_catagory.objects.all())
+    catagorys = list(Product_catagory.objects.all().prefetch_related('product_catagory'))
     toppings = list(Topping.objects.all().values('name').order_by('name'))
     subsextra = list(Product.objects.filter(catagory__name = "SubsExtra").values())
     toppings = [top['name'] for top in toppings ]
