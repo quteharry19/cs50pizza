@@ -156,15 +156,16 @@ def checkorderid(request,order_id):
 
 def checkorder(request,username):
     user = User.objects.get(username=username)
-    orders = Order.objects.filter(user=user)
-
+    if user.is_superuser:
+        orders = Order.objects.all().order_by('-status','-id')
+    else:
+        orders = Order.objects.filter(user=user).order_by('-status','-id')
     context = {
         'user' : user,
         'orders' : orders
     }
-    for order in orders:
-        print(order.id)
     return render(request, 'orders/yourorders.html',context)
+
 def updateOrderStatus(request,order_id):
     order = Order.objects.get(pk=order_id)
     order_status = request.POST['order_status']
@@ -187,12 +188,15 @@ def contactSubmitted(request):
         mail_to = [request.POST['email']]
         msg = request.POST['msg']
         messages.success(request, f'Thanks {fullname} for contacting Harish Ahuja')
-        if request.POST['subject']:
+
+        try:
             subject = request.POST['subject']
-        else :
+        except :
             subject = "Welcome to Pinochio's pizza & subs"
+            
         context = {
             'fullname' : fullname,
+            'subject' : subject,
             'msg' : msg
         }
         result = send_HTML_Email(to=mail_to,subject=subject,template_name='orders/contactSubmitted.html',context=context)

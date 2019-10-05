@@ -23,25 +23,42 @@ Your Orders
     <div class="row">
         <div class="col-md-12">
             <div class="d-flex flex-column">
-                {% for order in orders %}
-                <h4>
-                    <a href="{% url 'checkorderid' order.id %}">
-                        <span>Order ID : {{ order.id }}</span>
-                        <span>Order Status {{ order.get_status_display }}</span>
-                        <span>Bill Amount $ {{ order.amount }}</span>
-                    </a>
-                </h4>
-                {% empty %}
-                <h2>
-                    No Orders found
-                    <a href="{% url 'menu' %}" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a>
-                </h2>
-                {% endfor %}
+                <div class="table-responsive" style="height: 50vh;overflow: scroll;">
+                    <table class="table table-bordered table-hover table-striped">
+                        <tr>
+                            <h4>
+                                {% if user.is_superuser %}
+                                <th>username</th>
+                                {% endif %}
+
+                                <th> Order ID </th>
+                                <th> Order Status </th>
+                                <th> Bill Amount </th>
+                            </h4>
+                        </tr>
+                        {% for order in orders %}
+
+                        <tr>
+                            {% if user.is_superuser %}
+                            <th>{{ order.user }}</th>
+                            {% endif %}
+
+                            <td>{{ order.id }}</td>
+                            <td><a href="{% url 'checkorderid' order.id %}">{{ order.get_status_display }}</a></td>
+                            <td>{{ order.amount }}</td>
+                        </tr>
+
+                        {% empty %}
+                        <h2>
+                            No Orders found
+                            <a href="{% url 'menu' %}" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View
+                                Menu</a>
+                        </h2>
+                        {% endfor %}
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-
-
-
 </div>
 {% endblock %}
