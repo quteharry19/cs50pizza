@@ -6,7 +6,7 @@ About
 {% endblock %}
 
 {% block content %}
-<section class="home-slider owl-carousel img" style="background-image: url({% static 'orders/images/bg_1.jpg' %});">
+<!-- <section class="home-slider owl-carousel img" style="background-image: url({% static 'orders/images/bg_1.jpg' %});">
 
     <div class="slider-item" style="background-image: url({% static 'orders/images/bg_3.jpg' %});">
         <div class="overlay"></div>
@@ -21,11 +21,11 @@ About
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
-{% include 'orders/introsection.html' %}
+<!-- include 'orders/introsection.html' -->
 
-{% include 'orders/aboutsection.html' %}
+<!-- include 'orders/aboutsection.html' -->
 
 <section class="ftco-section">
     <div class="container">
@@ -40,7 +40,8 @@ About
         <div class="row">
             <div class="col-lg-3 d-flex mb-sm-4 ftco-animate">
                 <div class="staff">
-                    <div class="img mb-4" style="background-image: url({% static 'orders/images/person_1.jpg' %});"></div>
+                    <div class="img mb-4" style="background-image: url({% static 'orders/images/person_1.jpg' %});">
+                    </div>
                     <div class="info text-center">
                         <h3><a href="teacher-single.html">Tom Smith</a></h3>
                         <span class="position">Hair Specialist</span>
@@ -53,7 +54,8 @@ About
             </div>
             <div class="col-lg-3 d-flex mb-sm-4 ftco-animate">
                 <div class="staff">
-                    <div class="img mb-4" style="background-image: url({% static 'orders/images/person_2.jpg' %});"></div>
+                    <div class="img mb-4" style="background-image: url({% static 'orders/images/person_2.jpg' %});">
+                    </div>
                     <div class="info text-center">
                         <h3><a href="teacher-single.html">Mark Wilson</a></h3>
                         <span class="position">Beard Specialist</span>
@@ -66,7 +68,8 @@ About
             </div>
             <div class="col-lg-3 d-flex mb-sm-4 ftco-animate">
                 <div class="staff">
-                    <div class="img mb-4" style="background-image: url({% static 'orders/images/person_3.jpg' %});"></div>
+                    <div class="img mb-4" style="background-image: url({% static 'orders/images/person_3.jpg' %});">
+                    </div>
                     <div class="info text-center">
                         <h3><a href="teacher-single.html">Patrick Jacobson</a></h3>
                         <span class="position">Hair Stylist</span>
@@ -79,7 +82,8 @@ About
             </div>
             <div class="col-lg-3 d-flex mb-sm-4 ftco-animate">
                 <div class="staff">
-                    <div class="img mb-4" style="background-image: url({% static 'orders/images/person_4.jpg' %});"></div>
+                    <div class="img mb-4" style="background-image: url({% static 'orders/images/person_4.jpg' %});">
+                    </div>
                     <div class="info text-center">
                         <h3><a href="teacher-single.html">Ivan Dorchsner</a></h3>
                         <span class="position">Beard Specialist</span>
@@ -97,8 +101,8 @@ About
 {% include 'orders/gallerysection.html' %}
 
 
-<section class="ftco-counter ftco-bg-dark img" id="section-counter" style="background-image: url({% static 'orders/images/bg_2.jpg' %});"
-    data-stellar-background-ratio="0.5">
+<section class="ftco-counter ftco-bg-dark img" id="section-counter"
+    style="background-image: url({% static 'orders/images/bg_2.jpg' %});" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row justify-content-center">
