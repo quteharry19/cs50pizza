@@ -179,6 +179,9 @@ def services(request):
 def about(request):
     return render(request, 'orders/about.html')
 
+def locate(request):
+    return render(request, 'orders/locate.html')
+
 def contact(request):
     return render(request, 'orders/contact.html')
 

@@ -57,6 +57,16 @@ document.querySelector('#checkoutForm').onsubmit = (e) => {
     cartData.setAttribute('value',JSON.stringify(cartItems))
     document.querySelector('#cartUL').appendChild(cartData)
     //localStorage.setItem('cartItems',[])
+    checknull = (item) => {
+        return item!=null
+    }
+
+    if (cartItems.filter(checknull).length == 0){
+        alert('cart is empty')
+        return false
+    }
+    // alert(cartItems.filter(checknull).length);
+
 }
 
 delItemHandler = (delitem, index, itemCost) => {

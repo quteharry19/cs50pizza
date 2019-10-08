@@ -1,0 +1,35 @@
+{% extends 'orders/base.html' %}
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+{% block title %}
+Locate US
+{% endblock %}
+{% block content %}
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div id="m a p"></div>
+            <div>
+                <a href="https://www.google.com/maps?q=74+Winthrop+St,+Cambridge,+MA+02138&spn=0.023621,0.024837&gl=us"
+                    target="blank">
+                    <img src="{% static 'orders/images/map.jpg' %}" alt="map" style="max-height: 100%;max-width: 100%;">
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div style="border: 2px solid grey">
+                <h3>Location and Directions</h3>
+                <ul>
+                    <li>Pinocchio's is located on Winthrop street right near the corner of JFK Street next to Berk's
+                        shoes.
+                    </li>
+                    <li>We are 2 blocks from the Harvard Square T stop.</li>
+                    <li>Do not park across the street from us! It is a tow zone!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
