@@ -93,28 +93,32 @@
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
-
         </div>
     </nav>
 
     <!-- message bar -->
-    {% if messages %} {% for message in messages %} {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    {% if messages %} 
+    {% for message in messages %} 
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>{{ message }}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {% endif %} {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    {% endif %} 
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>{{ message }}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {% endif %} {% endfor %} {% endif %}
+    {% endif %}
+    {% endfor %} 
+    {% endif %}
 
     <!-- bootstrap modal -->
     <div class="modal fade" role="dialog" tabindex="-1" id="signin">
@@ -344,7 +348,8 @@
 
     <!-- END nav -->
 
-    {% block content %} {% endblock %} {% block foot %}
+    {% block content %} {% endblock %} 
+    {% block foot %}
     <footer class="ftco-footer ftco-section img">
         <div class="overlay"></div>
         <div class="container">
