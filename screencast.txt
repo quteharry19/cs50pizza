@@ -1,9 +1,10 @@
 This is cs50w project 3 - web programming with python and javascript
 
 project requirements -
-1. Registration, Login, Logout - Django user authentication
-2. Menu - Complete menu from Pinnochio's web page
-3. Adding Items - django admin interface
+
+1. Menu - Complete menu from Pinnochio's web page
+2. Adding Items - django admin interface (topping/item restriction apply only if 1st char isnumeric )
+3. Registration, Login, Logout - Django user authentication
 4. order items will fly/animate from mouse pointer location to cart
 5. Placing order - empty cart will give alert. atleast one item in cart will place the order and send a email to user.
 6. user will receive a email with a track order status link

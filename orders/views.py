@@ -129,7 +129,7 @@ def checkout(request):
             'order_id' : order.id,
             'order_status' : order.status,
             'cartItems' : cartItems,
-            'absolute_uri' : request.build_absolute_uri(f'/checkorder/{order.id}'),
+            'absolute_uri' : request.build_absolute_uri(f'/checkorderid/{order.id}'),
             'total_amount' : round(total_amount,2)
         }
         result = send_HTML_Email([email],"Pinochio's Order Placed","orders/checkoutMail.html",context)
